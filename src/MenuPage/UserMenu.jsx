@@ -43,17 +43,22 @@ function UserMenu() {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{width : "150  px"}}
+              style={{width : "150px"}}
 
             >
               <span className="sr-only" >test user</span>
             </button>
             <div className="dropdown-menu">
-              <div className="dropdown-item" href="#">
-                <NavLink to="/">ข้อมูลผู้ใช้งาน</NavLink>
+              <div className="dropdown-item" href="#" >
+                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">ข้อมูลผู้ใช้งาน</NavLink>
               </div>
+              <div className="dropdown-item" href="#" >
+                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">สถานะการใช้งาน</NavLink>
+              </div>
+              <hr className="dropdown-divider"></hr>
+
               <div className="dropdown-item" href="#">
-                <NavLink to="/test">ออกจากระบบ</NavLink>
+                <NavLink  style={{color : "red" , textDecoration : "none" }} to="/test">ออกจากระบบ</NavLink>
               </div>
             </div>
           </div>
