@@ -53,7 +53,7 @@ function UserMenu() {
                 <NavLink  style={{color : "black",textDecoration : "none"}} to="/">ข้อมูลผู้ใช้งาน</NavLink>
               </div>
               <div className="dropdown-item" href="#" >
-                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">สถานะการใช้งาน</NavLink>
+                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">หัวข้อ</NavLink>
               </div>
               <hr className="dropdown-divider"></hr>
 
