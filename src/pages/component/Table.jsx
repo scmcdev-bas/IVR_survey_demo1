@@ -6,7 +6,6 @@ function Table() {
       <div className="card mb-4">
         <div
           className="card-header align-items-center text-white p-2" 
-          style={{ backgroundColor: "#FF971A" }}
         >
           ผลการค้นหา
         </div>

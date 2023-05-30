@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 function UserMenu() {
@@ -43,8 +43,10 @@ function UserMenu() {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
+              style={{width : "150  px"}}
+
             >
-              <span className="sr-only">test user</span>
+              <span className="sr-only" >test user</span>
             </button>
             <div className="dropdown-menu">
               <div className="dropdown-item" href="#">

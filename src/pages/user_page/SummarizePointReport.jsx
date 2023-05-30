@@ -11,6 +11,11 @@ function SummarizePointReport() {
           <h3 className="p-2">รายงานสรุปการให้คะแนน</h3>
         </div>
         <FormRating/>
+        <div className="pb-3">
+          <button className="btn btn-primary text-white">
+            ดาวน์โหลดไฟล์เอกซ์เซล
+          </button>
+        </div>
         <Table/>
       </div>
   );

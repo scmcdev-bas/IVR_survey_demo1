@@ -117,7 +117,7 @@ function SearchPointPage() {
           </div>
         </div>
         <div className="p-3">
-          <button className="btn btn-info text-white">
+          <button className="btn btn-primary text-white">
             ดาวน์โหลดไฟล์เอกซ์เซล
           </button>
         </div>
