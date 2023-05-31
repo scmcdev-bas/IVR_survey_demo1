@@ -11,12 +11,12 @@ function Table() {
         </div>
         <div className=" " >
           <div className="d-flex justify-content-center">
-            <div className="row p-2 mt-3 "style={{width : "95%"}}>
+            <div className="row p-2 mt-3 "style={{width : "100%"}}>
               <div>
                 <div className="px-5">
                   <table className="table table-hove shadow-sm p-3 mb-5 bg-body-tertiary rounded py-5" >
                     <thead>
-                      <tr className="">
+                      <tr className="table-header align-middle">
                         <th scope="col" style={{ width: "5%" }}>
                           ลำดับที่
                         </th>

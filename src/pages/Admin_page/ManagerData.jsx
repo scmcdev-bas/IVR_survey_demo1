@@ -34,7 +34,7 @@ function ManagerData() {
                 <div className="d-flex justify-content-center p-5">
                   <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                     <thead>
-                      <tr>
+                      <tr className="table-header">
                         <th scope="col">ลำดับ</th>
                         <th scope="col">รหัสเจ้าหน้าที่</th>
                         <th scope="col">ชื่อหัวเจ้าหน้าที่</th>

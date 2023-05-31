@@ -119,7 +119,7 @@ function FormRating() {
               </div>
               <div className="row p-2 ">
                 <div className="col-2 px-5 pt-1 ">คะแนน :</div>
-                <div className="col-4 ms-2 d-flex mt-2">
+                <div className="col-5 ms-2 d-flex mt-2">
                   <div className="me-3 ms-1">
                     <input
                       type="checkbox"
