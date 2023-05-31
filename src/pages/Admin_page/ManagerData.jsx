@@ -3,7 +3,13 @@ import React from "react";
 function ManagerData() {
   return (
     <>
-      <div style={{ paddingLeft: "270px", paddingRight: "10px" ,minWidth: "1200px"}}>
+      <div
+        style={{
+          paddingLeft: "270px",
+          paddingRight: "10px",
+          minWidth: "1200px",
+        }}
+      >
         <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
           this is path
         </div>
@@ -11,14 +17,20 @@ function ManagerData() {
           <h3 className="p-2">ข้อมูลหัวหน้างาน</h3>
         </div>
         <div className="card">
-          <div
-            className="card-header align-items-center text-white p-2"
-          >
+          <div className="h5  card-header align-items-center text-white p-2">
             ผลการค้นหา
           </div>
           <div className=" ">
             <div className="card w-100 ">
               <form>
+                <div className="d-flex justify-content-end">
+                  <div className="btn btn-success m-3 mb-0 d-flex align-items-center">
+                    <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
+                      <i className="bi bi-download"></i>
+                      <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
+                    </dir>
+                  </div>
+                </div>
                 <div className="d-flex justify-content-center pt-4">
                   <input
                     type="text"
@@ -28,11 +40,9 @@ function ManagerData() {
                     style={{ width: "300px" }}
                   ></input>
                 </div>
-                <div className="btn btn-success ms-3">
-                  ดาวน์โหลดไฟล์เอกซ์เซล
-                </div>
+
                 <div className="d-flex justify-content-center p-5">
-                  <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+                  <table className="table table-hove shadow-sm p-3 mb-5 bg-body-tertiary rounded py-5">
                     <thead>
                       <tr className="table-header">
                         <th scope="col">ลำดับ</th>
@@ -65,7 +75,6 @@ function ManagerData() {
           </div>
         </div>
       </div>
-      
     </>
   );
 }

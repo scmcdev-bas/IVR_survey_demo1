@@ -31,7 +31,17 @@ li, li a {
   text-decoration: none;
   color: white;
 }
-.nav_link:hover {
+.nav_link:hover:not(.active) {
   /* Hover style */
   color: orange !important;
 }
+.text-orange{
+  color: #f28500;
+}
+.text-orange:hover{
+  color: #898989;
+}
+.table-header{
+  background-color: #eeeeee;
+}
+

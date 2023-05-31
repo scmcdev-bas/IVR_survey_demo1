@@ -11,9 +11,9 @@ function InsertEmployeeData() {
       </div>
       <div className="card">
         <div
-          className="card-header align-items-center text-white p-2"
+          className="h5  card-header align-items-center text-white p-2"
         >
-          ผลการค้นหา
+          นำเข้าข้อมูล
         </div>
         <div className="">
           <div className="card w-100 py-4">

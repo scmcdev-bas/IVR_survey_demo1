@@ -12,13 +12,21 @@ function EmployeeData() {
         </div>
         <div className="card">
           <div
-            className="card-header align-items-center text-white p-2"
+            className="h5  card-header align-items-center text-white p-2"
           >
             ผลการค้นหา
           </div>
           <div className=" ">
             <div className="card w-100 ">
               <form>
+              <div className="d-flex justify-content-end">
+                  <div className="btn btn-success m-3 mb-0 d-flex align-items-center">
+                    <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
+                      <i className="bi bi-download"></i>
+                      <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
+                    </dir>
+                  </div>
+                </div>
                 <div className="d-flex justify-content-center pt-4">
                   <input
                     type="text"
@@ -28,9 +36,7 @@ function EmployeeData() {
                     style={{ width: "300px" }}
                   ></input>
                 </div>
-                <div className="btn btn-success ms-3">
-                  ดาวน์โหลดไฟล์เอกซ์เซล
-                </div>
+              
                 <div className="d-flex justify-content-center p-5">
                   <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
                     <thead>

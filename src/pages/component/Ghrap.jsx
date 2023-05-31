@@ -67,7 +67,7 @@ function Ghrap() {
         <div className="col-4 p-0">
           <div className="card">
             <div
-              className="card-header align-items-center text-white p-2"
+              className="h5 card-header align-items-center text-white p-2"
             >
               ผลการค้นหา
             </div>
@@ -99,7 +99,7 @@ function Ghrap() {
         <div className="col-8">
           <div className="card">
             <div
-              className="card-header align-items-center text-white p-2"
+              className="h5 card-header align-items-center text-white p-2"
             >
               ผลการค้นหา
             </div>
@@ -124,8 +124,7 @@ function Ghrap() {
           </div>
           <div className="card mt-3">
             <div
-              className="card-header align-items-center text-white p-2"
-              style={{ backgroundColor: "#FF971A" }}
+              className="h5 card-header align-items-center text-white p-2"
             >
               ผลการค้นหา
             </div>

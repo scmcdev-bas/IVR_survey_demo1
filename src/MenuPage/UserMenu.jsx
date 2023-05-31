@@ -46,7 +46,7 @@ function UserMenu() {
               style={{width : "150px"}}
 
             >
-              <span className="sr-only" >test user</span>
+              <span className="h5 sr-only" >test user</span>
             </button>
             <div className="dropdown-menu">
               <div className="dropdown-item" href="#" >
@@ -76,7 +76,7 @@ function UserMenu() {
               left: 0,
               bottom: 0,
               zIndex: 100,
-              backgroundColor: "#212A3E",
+              backgroundColor: "#394867",
             }}
           >
             <div className="position-sticky text-light">
@@ -90,7 +90,7 @@ function UserMenu() {
                         return location.pathname === "/";
                       }}
                       style={({ isActive }) => ({
-                        color: isActive ? "#545e6f" : "#fff",
+                        color: isActive ? "#212A3E" : "#fff",
                       })}
                       to="/dashboard"
                     >
@@ -105,16 +105,16 @@ function UserMenu() {
                   style={{ margin: "0px", padding: "0px" }}
                 >
                   <p
-                    className="text-orange pt-2 pb-0 fs-5"
-                    style={{ margin: 0, padding: 0, color: "orange" }}
+                    className="h5 text-orange pt-2 pb-0 fs-5"
+                    style={{ margin: 0, padding: 0, color: "white" }}
                   >
                     รายงาน
                   </p>{" "}
                   <div className="ps-2">
                     <NavLink
-                      className="nav_link  d-flex align-items-center bi bi-archive-fill py-2"
+                      className="nav_link d-flex align-items-center bi bi-archive-fill py-2"
                       style={({ isActive }) => ({
-                        color: isActive ? "#545e6f" : "#fff",
+                        color: isActive ? "#212A3E" : "#fff",
                       })}
                       to="/pointreport"
                     >
@@ -123,7 +123,7 @@ function UserMenu() {
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill "
                       style={({ isActive }) => ({
-                        color: isActive ? "#545e6f" : "#fff",
+                        color: isActive ? "#212A3E" : "#fff",
                       })}
                       to="/summarizesearchpointpage"
                     >
@@ -132,7 +132,7 @@ function UserMenu() {
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill py-2"
                       style={({ isActive }) => ({
-                        color: isActive ? "#545e6f" : "#fff",
+                        color: isActive ? "#212A3E" : "#fff",
                       })}
                       to="/searchpointpage"
                     >

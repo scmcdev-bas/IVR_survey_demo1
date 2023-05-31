@@ -58,7 +58,7 @@ function AdminMenuPage() {
               style={{width : "150px"}}
 
             >
-              <span className="sr-only " >test user</span>
+              <span className="h5 sr-only " >test user</span>
             </button>
             <div className="dropdown-menu">
               <div className="dropdown-item" href="#">
@@ -83,7 +83,7 @@ function AdminMenuPage() {
               left: 0,
               bottom: 0,
               zIndex: 100,
-              backgroundColor: "#212A3E",
+              backgroundColor: "#394867",
             }}
           >
             <div className="position-sticky text-light">
@@ -97,7 +97,7 @@ function AdminMenuPage() {
                         return location.pathname === "/";
                       }}
                       style={({ isActive }) => ({
-                        color: isActive ? "#545e6f" : "#fff",
+                        color: isActive ? "#212A3E" : "#fff",
                       })}
                       to="/admindashboard"
                     >
@@ -137,7 +137,7 @@ function AdminMenuPage() {
                         <NavLink
                           className="nav_link "
                           style={({ isActive }) => ({
-                            color: isActive ? "#545e6f" : "#fff",
+                            color: isActive ? "#212A3E" : "#fff",
                           })}
                           to="/managerdata"
                         >
@@ -150,7 +150,7 @@ function AdminMenuPage() {
                         <NavLink
                           className="nav_link "
                           style={({ isActive }) => ({
-                            color: isActive ? "#545e6f" : "#fff",
+                            color: isActive ? "#212A3E" : "#fff",
                           })}
                           to="/insertmanagerdata"
                         >
@@ -178,7 +178,7 @@ function AdminMenuPage() {
                         <NavLink
                           className="nav_link"
                           style={({ isActive }) => ({
-                            color: isActive ? "#545e6f" : "#fff",
+                            color: isActive ? "#212A3E" : "#fff",
                           })}
                           to="/employeedata"
                         >
@@ -190,7 +190,7 @@ function AdminMenuPage() {
                         <NavLink
                           className="nav_link"
                           style={({ isActive }) => ({
-                            color: isActive ? "#545e6f" : "#fff",
+                            color: isActive ? "#212A3E" : "#fff",
                           })}
                           to="/insertemployeedata"
                         >
@@ -204,7 +204,7 @@ function AdminMenuPage() {
                     <NavLink
                       className="nav_link col d-flex bi bi-person align-items-center ps-2"
                       style={({ isActive }) => ({
-                        color: isActive ? "#545e6f" : "#fff",
+                        color: isActive ? "#212A3E" : "#fff",
                       })}
                       to="/manageuser"
                     >

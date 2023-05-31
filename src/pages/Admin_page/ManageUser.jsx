@@ -102,7 +102,7 @@ function ManageUser() {
       </div>
       <div className="card">
         <div
-          className="card-header align-items-center text-white p-2"
+          className="h5 card-header align-items-center text-white p-2"
         >
           เงื่อนไขการค้นหา
         </div>
@@ -153,7 +153,7 @@ function ManageUser() {
       </div>
       <div className="card mt-5">
         <div
-          className="card-header align-items-center text-white p-2"
+          className="h5 card-header align-items-center text-white p-2"
         >
           ผลการค้นหา
         </div>
