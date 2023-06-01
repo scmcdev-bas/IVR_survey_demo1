@@ -234,7 +234,7 @@ function SummarizePointReport() {
       </div>{" "}
       <div className="pb-3">
         <div className="py-0">
-          <div className="btn btn-success ">
+          <div className="btn btn-success " >
             <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
               <i className="bi bi-download"></i>
               <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
