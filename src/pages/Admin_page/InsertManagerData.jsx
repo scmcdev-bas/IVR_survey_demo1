@@ -40,8 +40,11 @@ function InsertManagerData() {
                       id="floatingInput"
                     ></input>
                   </div>
-                  <div className="btn btn-success mt-3 ">
-                    นำเข้าข้อมูลเจ้าหน้าที่
+                  <div className="btn btn-success mt-3">
+                    <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
+                      <i className="bi bi-upload"></i>
+                      <div className="ps-2">นำเข้าข้อมูลเจ้าหน้าที่</div>
+                    </dir>
                   </div>
                 </div>
                 <div className="col-2 ms-3 mt-3">

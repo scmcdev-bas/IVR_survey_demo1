@@ -2,7 +2,9 @@ import React from "react";
 
 function InsertEmployeeData() {
   return (
-    <div style={{ paddingLeft: "270px", paddingRight: "10px",minWidth: "1200px" }}>
+    <div
+      style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }}
+    >
       <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
         this is path
       </div>
@@ -10,15 +12,13 @@ function InsertEmployeeData() {
         <h3 className="p-2">นำเข้าข้อมูลเจ้าหน้าที่</h3>
       </div>
       <div className="card">
-        <div
-          className="h5  card-header align-items-center text-white p-2"
-        >
+        <div className="h5  card-header align-items-center text-white p-2">
           นำเข้าข้อมูล
         </div>
         <div className="">
           <div className="card w-100 py-4">
-            <form >
-              <div className="row mb-3" style={{width : "95%"}}>
+            <form>
+              <div className="row mb-3" style={{ width: "95%" }}>
                 <div className="col-2 ms-3 mt-3">
                   <p>ประเภทข้อมูล :</p>
                   <br />
@@ -40,8 +40,11 @@ function InsertEmployeeData() {
                       id="floatingInput"
                     ></input>
                   </div>
-                  <div className="btn btn-success mt-3 ">
-                    นำเข้าข้อมูลเจ้าหน้าที่
+                  <div className="btn btn-success mt-3">
+                    <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
+                      <i className="bi bi-upload"></i>
+                      <div className="ps-2">นำเข้าข้อมูลเจ้าหน้าที่</div>
+                    </dir>
                   </div>
                 </div>
                 <div className="col-2 ms-3 mt-3">

@@ -73,7 +73,6 @@ function SearchPointPage() {
         <div className="card">
           <div
             className="h5 card-header align-items-center text-white p-2"
-            style={{ backgroundColor: "#FF971A" }}
           >
             เงื่อนไขการค้นหา
           </div>

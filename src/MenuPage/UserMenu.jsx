@@ -90,7 +90,7 @@ function UserMenu() {
                         return location.pathname === "/";
                       }}
                       style={({ isActive }) => ({
-                        color: isActive ? "#212A3E" : "#fff",
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/dashboard"
                     >
@@ -106,7 +106,7 @@ function UserMenu() {
                 >
                   <p
                     className="h5 text-orange pt-2 pb-0 fs-5"
-                    style={{ margin: 0, padding: 0, color: "white" }}
+                    style={{ margin: 0, padding: 0, color: "orange" }}
                   >
                     รายงาน
                   </p>{" "}
@@ -114,7 +114,7 @@ function UserMenu() {
                     <NavLink
                       className="nav_link d-flex align-items-center bi bi-archive-fill py-2"
                       style={({ isActive }) => ({
-                        color: isActive ? "#212A3E" : "#fff",
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/pointreport"
                     >
@@ -123,7 +123,7 @@ function UserMenu() {
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill "
                       style={({ isActive }) => ({
-                        color: isActive ? "#212A3E" : "#fff",
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/summarizesearchpointpage"
                     >
@@ -132,7 +132,7 @@ function UserMenu() {
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill py-2"
                       style={({ isActive }) => ({
-                        color: isActive ? "#212A3E" : "#fff",
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/searchpointpage"
                     >
