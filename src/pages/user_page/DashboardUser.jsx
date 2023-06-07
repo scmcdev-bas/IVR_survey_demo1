@@ -1,6 +1,6 @@
-import React from "react";
-
+import React, { useEffect } from "react";
 function DashboardUser() {
+
   return (
     <div
       style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }}

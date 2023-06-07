@@ -1,6 +1,10 @@
-import React from "react";
-
+import axios from "axios";
+import React, { useEffect } from "react";
 function EmployeeData() {
+  useEffect(()=>{
+    const response = axios.get("http://localhost:3001/getuserdata", {
+        });
+  },[])
   return (
     <>
       <div style={{ paddingLeft: "270px", paddingRight: "10px" ,minWidth: "1200px"}}>

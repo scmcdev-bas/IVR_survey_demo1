@@ -1,7 +1,32 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 function UserMenu() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const verifyToken = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post("http://localhost:3001/verifyuser", {
+        token,
+      });
+      if (response.data === false) {
+        navigate("/");
+      }
+      console.log(response.data);
+      setUsername(response.data);
+    } catch (error) {
+      console.error("Error verifying token:", error);
+    }
+  };
+  useEffect(() => {
+    verifyToken();
+  }, []);
+  const logout = () => {
+    localStorage.clear("token");
+    navigate("/");
+  };
   return (
     <div>
       <div
@@ -27,10 +52,10 @@ function UserMenu() {
                 <span className="sr-only ">ภาษา</span>
               </button>
               <div className="dropdown-menu">
-                <div className="dropdown-item" href="#">
+                <div className="dropdown-item">
                   <NavLink to="/">ภาษาไทย</NavLink>
                 </div>
-                <div className="dropdown-item" href="#">
+                <div className="dropdown-item">
                   <NavLink to="/test">English</NavLink>
                 </div>
               </div>
@@ -43,22 +68,31 @@ function UserMenu() {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{width : "150px"}}
-
+              style={{ width: "150px" }}
             >
-              <span className="h5 sr-only" >test user</span>
+              <span className="h5 sr-only">{username}</span>
             </button>
             <div className="dropdown-menu">
-              <div className="dropdown-item" href="#" >
-                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">ข้อมูลผู้ใช้งาน</NavLink>
+              <div className="dropdown-item">
+                <NavLink
+                  style={{ color: "black", textDecoration: "none" }}
+                  to="/"
+                >
+                  ข้อมูลผู้ใช้งาน
+                </NavLink>
               </div>
-              <div className="dropdown-item" href="#" >
-                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">หัวข้อ</NavLink>
+              <div className="dropdown-item">
+                <NavLink
+                  style={{ color: "black", textDecoration: "none" }}
+                  to="/"
+                >
+                  หัวข้อ
+                </NavLink>
               </div>
               <hr className="dropdown-divider"></hr>
 
-              <div className="dropdown-item" href="#">
-                <NavLink  style={{color : "red" , textDecoration : "none" }} to="/test">ออกจากระบบ</NavLink>
+              <div className="logout dropdown-item" onClick={logout}>
+                ออกจากระบบ
               </div>
             </div>
           </div>
@@ -85,14 +119,14 @@ function UserMenu() {
                 <ul className="nav flex-column ">
                   <li className="nav-item">
                     <NavLink
-                      className="nav_link fs-5  "
-                      isActive={(match, location) => {
+                      className="nav_link fs-4"
+                      isactive={(match, location) => {
                         return location.pathname === "/";
                       }}
-                      style={({ isActive }) => ({
-                        color: isActive ? "orange" : "#fff",
+                      style={({ isactive }) => ({
+                        color: isactive ? "orange" : "#fff",
                       })}
-                      to="/dashboard"
+                      to="/userdashboard"
                     >
                       แดชบอร์ด
                     </NavLink>
@@ -113,8 +147,8 @@ function UserMenu() {
                   <div className="ps-2">
                     <NavLink
                       className="nav_link d-flex align-items-center bi bi-archive-fill py-2"
-                      style={({ isActive }) => ({
-                        color: isActive ? "orange" : "#fff",
+                      style={({ isactive }) => ({
+                        color: isactive ? "orange" : "#fff",
                       })}
                       to="/pointreport"
                     >
@@ -122,8 +156,8 @@ function UserMenu() {
                     </NavLink>
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill "
-                      style={({ isActive }) => ({
-                        color: isActive ? "orange" : "#fff",
+                      style={({ isactive }) => ({
+                        color: isactive ? "orange" : "#fff",
                       })}
                       to="/summarizesearchpointpage"
                     >
@@ -131,8 +165,8 @@ function UserMenu() {
                     </NavLink>
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill py-2"
-                      style={({ isActive }) => ({
-                        color: isActive ? "orange" : "#fff",
+                      style={({ isactive }) => ({
+                        color: isactive ? "orange" : "#fff",
                       })}
                       to="/searchpointpage"
                     >

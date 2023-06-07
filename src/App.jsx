@@ -15,6 +15,8 @@ import LoginPage from "./pages/login/LoginPage";
 import ErrorNotFoundPage from "./pages/notFound/ErrorNotFoundPage";
 import DashboardUser from "./pages/user_page/DashboardUser";
 import DashboardAdmin from "./pages/Admin_page/DashboardAdmin";
+import { useEffect } from "react";
+
 function App() {
 
   return (
@@ -27,7 +29,7 @@ function App() {
           
           <Route path="/searchpointpage" element={<><UserMenu/><SearchPointPage /></>} />
           
-          <Route path="/dashboard" element={<><UserMenu/><DashboardUser/><Ghrap /></>} />
+          <Route path="/userdashboard" element={<><UserMenu/><DashboardUser/><Ghrap /></>} />
 
 
           <Route path="/userchart" element={<><UserMenu/><Ghrap /></>} />
