@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
@@ -48,7 +47,7 @@ function LoginPage() {
       if (response.data === 'admin') {
         navigate("/admindashboard");
       }else if (response.data === 'user') {
-        navigate("/admindashboard");
+        navigate("/userdashboard");
       }
     } catch (error) {
       console.error("Error verifying token:", error);
@@ -70,7 +69,7 @@ function LoginPage() {
                 <h1 className="">User Login</h1>
 
                 <div className="form-outline mb-4 pt-3">
-                  <p className="text-start">ยูสเซอร์เนม :</p>
+                  <p className="text-start">ชื่อผู้ใช้งาน :</p>
                   <input
                     onChange={handleUsername}
                     type="email"

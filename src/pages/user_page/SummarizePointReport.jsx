@@ -1,6 +1,5 @@
 import React from "react";
-import Table from "../component/Table";
-import FormRating from "../component/FormRating";
+
 function SummarizePointReport() {
   return (
     <div

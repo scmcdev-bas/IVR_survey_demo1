@@ -1,6 +1,4 @@
 import React from "react";
-import Table from "../component/Table";
-import FormRating from "../component/FormRating";
 function PointReport() {
   return (
     <div>

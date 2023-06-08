@@ -8,8 +8,6 @@ function AdminMenuPage() {
   const [isHidden, setIsHidden] = useState(true);
   const [isHidden2, setIsHidden2] = useState(true);
   const [username, setUsername] = useState("");
-  
-  
 
   const verifyToken = async () => {
     const token = localStorage.getItem("token");
@@ -39,10 +37,10 @@ function AdminMenuPage() {
     setIsHidden2(!isHidden2);
   };
 
-  const logout = () =>{
-    localStorage.clear('token');
-    navigate('/')
-  }
+  const logout = () => {
+    localStorage.clear("token");
+    navigate("/");
+  };
   return (
     <div>
       <div
@@ -86,12 +84,11 @@ function AdminMenuPage() {
               aria-expanded="false"
               style={{ width: "150px" }}
             >
-              <span className="h5 sr-only ">{username}</span>
+              <span className="h5 sr-only ">{username}&nbsp;&nbsp;</span>
             </button>
             <div className="dropdown-menu">
-              <div className="dropdown-item">
-              </div>
-              <div className="logout dropdown-item"onClick={logout}>
+              <div className="dropdown-item"></div>
+              <div className="logout dropdown-item" onClick={logout}>
                 ออกจากระบบ
               </div>
             </div>
@@ -120,11 +117,11 @@ function AdminMenuPage() {
                   <li className="nav-item">
                     <NavLink
                       className="nav_link fs-4 justify-content-center"
-                      isactive={(match, location) => {
+                      isActive={(match, location) => {
                         return location.pathname === "/";
                       }}
-                      style={({ isactive }) => ({
-                        color: isactive ? "orange" : "#fff",
+                      style={({ isActive }) => ({
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/admindashboard"
                     >
@@ -163,8 +160,8 @@ function AdminMenuPage() {
                       <li className="col ">
                         <NavLink
                           className="nav_link "
-                          style={({ isactive }) => ({
-                            color: isactive ? "orange" : "#fff",
+                          style={({ isActive }) => ({
+                            color: isActive ? "orange" : "#fff",
                           })}
                           to="/managerdata"
                         >
@@ -175,8 +172,8 @@ function AdminMenuPage() {
                       <li className="col  ">
                         <NavLink
                           className="nav_link "
-                          style={({ isactive }) => ({
-                            color: isactive ? "orange" : "#fff",
+                          style={({ isActive }) => ({
+                            color: isActive ? "orange" : "#fff",
                           })}
                           to="/insertmanagerdata"
                         >
@@ -202,8 +199,8 @@ function AdminMenuPage() {
                       <li className="col">
                         <NavLink
                           className="nav_link"
-                          style={({ isactive }) => ({
-                            color: isactive ? "orange" : "#fff",
+                          style={({ isActive }) => ({
+                            color: isActive ? "orange" : "#fff",
                           })}
                           to="/employeedata"
                         >
@@ -214,8 +211,8 @@ function AdminMenuPage() {
                       <li className="col">
                         <NavLink
                           className="nav_link"
-                          style={({ isactive }) => ({
-                            color: isactive ? "orange" : "#fff",
+                          style={({ isActive }) => ({
+                            color: isActive ? "orange" : "#fff",
                           })}
                           to="/insertemployeedata"
                         >
@@ -228,8 +225,8 @@ function AdminMenuPage() {
                   <div style={{ fontSize: "18px" }}>
                     <NavLink
                       className="nav_link col d-flex bi bi-person align-items-center ps-2"
-                      style={({ isactive }) => ({
-                        color: isactive ? "orange" : "#fff",
+                      style={({ isActive }) => ({
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/manageuser"
                     >

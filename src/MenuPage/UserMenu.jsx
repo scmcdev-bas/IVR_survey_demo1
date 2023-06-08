@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState,useEffect } from "react";
+import { NavLink,useNavigate } from "react-router-dom";
 import axios from "axios";
 function UserMenu() {
   const navigate = useNavigate();
@@ -23,10 +23,10 @@ function UserMenu() {
   useEffect(() => {
     verifyToken();
   }, []);
-  const logout = () => {
-    localStorage.clear("token");
-    navigate("/");
-  };
+  const logout = () =>{
+    localStorage.clear('token');
+    navigate('/')
+  }
   return (
     <div>
       <div
@@ -55,7 +55,7 @@ function UserMenu() {
                 <div className="dropdown-item">
                   <NavLink to="/">ภาษาไทย</NavLink>
                 </div>
-                <div className="dropdown-item">
+                <div className="dropdown-item" >
                   <NavLink to="/test">English</NavLink>
                 </div>
               </div>
@@ -68,31 +68,22 @@ function UserMenu() {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{ width: "150px" }}
+              style={{width : "150px"}}
+
             >
-              <span className="h5 sr-only">{username}</span>
+              <span className="h5 sr-only" >{username}&nbsp;&nbsp;</span>
             </button>
             <div className="dropdown-menu">
-              <div className="dropdown-item">
-                <NavLink
-                  style={{ color: "black", textDecoration: "none" }}
-                  to="/"
-                >
-                  ข้อมูลผู้ใช้งาน
-                </NavLink>
+              <div className="dropdown-item"  >
+                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">ข้อมูลผู้ใช้งาน</NavLink>
               </div>
-              <div className="dropdown-item">
-                <NavLink
-                  style={{ color: "black", textDecoration: "none" }}
-                  to="/"
-                >
-                  หัวข้อ
-                </NavLink>
+              <div className="dropdown-item" >
+                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">หัวข้อ</NavLink>
               </div>
               <hr className="dropdown-divider"></hr>
 
-              <div className="logout dropdown-item" onClick={logout}>
-                ออกจากระบบ
+              <div className="logout dropdown-item"  onClick={logout}>
+               ออกจากระบบ
               </div>
             </div>
           </div>
@@ -120,11 +111,11 @@ function UserMenu() {
                   <li className="nav-item">
                     <NavLink
                       className="nav_link fs-4"
-                      isactive={(match, location) => {
+                      isActive={(match, location) => {
                         return location.pathname === "/";
                       }}
-                      style={({ isactive }) => ({
-                        color: isactive ? "orange" : "#fff",
+                      style={({ isActive }) => ({
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/userdashboard"
                     >
@@ -147,8 +138,8 @@ function UserMenu() {
                   <div className="ps-2">
                     <NavLink
                       className="nav_link d-flex align-items-center bi bi-archive-fill py-2"
-                      style={({ isactive }) => ({
-                        color: isactive ? "orange" : "#fff",
+                      style={({ isActive }) => ({
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/pointreport"
                     >
@@ -156,8 +147,8 @@ function UserMenu() {
                     </NavLink>
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill "
-                      style={({ isactive }) => ({
-                        color: isactive ? "orange" : "#fff",
+                      style={({ isActive }) => ({
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/summarizesearchpointpage"
                     >
@@ -165,8 +156,8 @@ function UserMenu() {
                     </NavLink>
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill py-2"
-                      style={({ isactive }) => ({
-                        color: isactive ? "orange" : "#fff",
+                      style={({ isActive }) => ({
+                        color: isActive ? "orange" : "#fff",
                       })}
                       to="/searchpointpage"
                     >

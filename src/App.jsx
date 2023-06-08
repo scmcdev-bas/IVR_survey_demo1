@@ -15,7 +15,6 @@ import LoginPage from "./pages/login/LoginPage";
 import ErrorNotFoundPage from "./pages/notFound/ErrorNotFoundPage";
 import DashboardUser from "./pages/user_page/DashboardUser";
 import DashboardAdmin from "./pages/Admin_page/DashboardAdmin";
-import { useEffect } from "react";
 
 function App() {
 

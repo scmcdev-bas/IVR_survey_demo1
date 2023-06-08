@@ -43,7 +43,6 @@ function ManageUser() {
               setusername("");
               setPassword("");
               setName("");
-              setVisible(false);
             }
           })
           .catch((error) => {
@@ -144,10 +143,10 @@ function ManageUser() {
             </div>
             <div className="col-6 mt-3 d-flex justify-content-end mx-2">
               <button
-                className="btn btn-danger"
+                className="btn btn-danger px-4"
                 onClick={() => setVisible(false)}
               >
-                ยกเลิก
+                ปิด
               </button>
             </div>
           </div>
