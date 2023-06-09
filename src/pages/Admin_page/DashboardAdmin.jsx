@@ -6,7 +6,7 @@ function DashboardAdmin() {
       style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }}
     >
       <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-        this is path
+        แดชบอร์ด
       </div>
       <div>
         <h3 className="p-2">แดชบอร์ด</h3>

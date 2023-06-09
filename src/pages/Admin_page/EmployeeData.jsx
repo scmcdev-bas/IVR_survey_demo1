@@ -2,19 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 function EmployeeData() {
   const [dataEmployee, setDataEmployee] = useState([]);
-  const [searchData,setSearchData] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/getuserdata");
-        setDataEmployee(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+    
+    searchDataSQL("");
     console.log(dataEmployee);
   }, []);
     const searchDataSQL= async (search) => {
@@ -38,7 +29,7 @@ function EmployeeData() {
         }}
       >
         <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-          this is path
+          พนักงาน / ข้อมูลพนักงาน
         </div>
         <div>
           <h3 className="p-2">ข้อมูลเจ้าหน้าที่</h3>
@@ -75,7 +66,7 @@ function EmployeeData() {
                       <tr className="table-header">
                         <th scope="col">ลำดับ</th>
                         <th scope="col">รหัสเจ้าหน้าที่</th>
-                        <th scope="col">ชื่อหัวเจ้าหน้าที่</th>
+                        <th scope="col">ชื่อเจ้าหน้าที่</th>
                         <th scope="col">รหัสหน่วยงาน</th>
                         <th scope="col">ชื่อหน่วยงาน</th>
                       </tr>

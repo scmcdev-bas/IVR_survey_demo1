@@ -4,7 +4,7 @@ function InsertManagerData() {
   return (
     <div style={{ paddingLeft: "270px", paddingRight: "10px",minWidth: "1200px" }}>
       <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-        this is path
+      หัวหน้างาน / นำเข้าข้อมูลหัวหน้างาน
       </div>
       <div>
         <h3 className="p-2">นำเข้าข้อมูลหัวหน้างาน</h3>

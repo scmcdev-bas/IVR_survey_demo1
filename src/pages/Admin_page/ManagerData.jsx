@@ -1,6 +1,28 @@
 import React from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 function ManagerData() {
+  const [dataManager, setDataManager] = useState([]);
+
+  useEffect(() => {
+    
+    searchDataSQL("");
+    console.log(dataManager);
+  }, []);
+  const searchDataSQL = async (search) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/searchmanagerdata",
+        {
+          search,
+        }
+      );
+      console.log(response.data);
+      setDataManager(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div
@@ -11,7 +33,7 @@ function ManagerData() {
         }}
       >
         <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-          this is path
+          หัวหน้างาน / ข้อมูลหัวหน้างาน
         </div>
         <div>
           <h3 className="p-2">ข้อมูลหัวหน้างาน</h3>
@@ -33,6 +55,7 @@ function ManagerData() {
                 </div>
                 <div className="d-flex justify-content-center pt-4">
                   <input
+                    onChange={(e) => searchDataSQL(e.target.value)}
                     type="text"
                     className="form-control m-3"
                     id="floatingInput"
@@ -46,27 +69,22 @@ function ManagerData() {
                     <thead>
                       <tr className="table-header">
                         <th scope="col">ลำดับ</th>
-                        <th scope="col">รหัสเจ้าหน้าที่</th>
-                        <th scope="col">ชื่อหัวเจ้าหน้าที่</th>
+                        <th scope="col">รหัสหัวหน้างาน</th>
+                        <th scope="col">ชื่อหัวหน้างาน</th>
                         <th scope="col">รหัสหน่วยงาน</th>
                         <th scope="col">ชื่อหน่วยงาน</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>data1</td>
-                        <td>data1</td>
-                        <td>data1</td>
-                        <td>data1</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>data1</td>
-                        <td>data1</td>
-                        <td>data1</td>
-                        <td>data1</td>
-                      </tr>
+                      {dataManager.map((item, index) => (
+                        <tr key={item.SUPERVISOR_ID}>
+                          <th scope="row">{index + 1}</th>
+                          <td>{item.SUPERVISOR_ID}</td>
+                          <td>{item.SUPERVISOR_NAME}</td>
+                          <td>{item.DIVISION_ID}</td>
+                          <td>{item.DIVISION_NAME}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>

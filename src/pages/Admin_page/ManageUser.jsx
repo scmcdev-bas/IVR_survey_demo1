@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Model from "react-modal";
 import "./popup.css";
 import axios from "axios";
+import { useEffect } from "react";
 function ManageUser() {
   const [username, setusername] = useState("");
   const [name, setName] = useState("");
@@ -9,6 +10,52 @@ function ManageUser() {
   const [userType, setUserType] = useState("user");
   const [visible, setVisible] = useState(false);
 
+  //for search
+  const [searchUsername, setSearchUsername] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchRole, setSearchRole] = useState("");
+  const [data, setData] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(9);
+  const [dataLenth, setDataLenth] = useState("");
+
+  const search = async () => {
+    console.log(searchUsername, searchName, searchRole);
+    try {
+      const response = await axios.post("http://localhost:3001/searchuser", {
+        searchUsername,
+        searchName,
+        searchRole,
+      });
+      console.log(response.data);
+      console.log(startIndex);
+      console.log(endIndex);
+      setDataLenth(response.data.length);
+      setData(response.data.slice(startIndex, endIndex + 1));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const next = () => {
+    if (endIndex <= dataLenth) {
+      setStartIndex(startIndex + 10);
+      setEndIndex(endIndex + 10);
+    }
+  };
+  const pre = () => {
+    if (startIndex - 10 >= 0) {
+      setStartIndex(startIndex - 10);
+      setEndIndex(endIndex - 10);
+    }
+  };
+  useEffect(() => {
+    console.log(dataLenth);
+    console.log(endIndex);
+    search();
+  }, []);
+  useEffect(() => {
+    search();
+  }, [startIndex, endIndex]);
   const adduser = () => {
     if (username === "" || name === "" || password === "") {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน");
@@ -43,6 +90,8 @@ function ManageUser() {
               setusername("");
               setPassword("");
               setName("");
+              setVisible(false);
+              search();
             }
           })
           .catch((error) => {
@@ -153,7 +202,7 @@ function ManageUser() {
         </div>
       </Model>
       <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-        this is path
+        ผู้ใช้งาน
       </div>
       <div>
         <h3 className="p-2">ข้อมูลผู้ใช้งาน</h3>
@@ -168,29 +217,37 @@ function ManageUser() {
               <div className="row mb-3">
                 <div className="col-md-2 col-sm-3 ms-3 mt-3">
                   <p className="pt-1">ชื่อผู้ใช้ :</p>
-                  <p className="pt-2">บทบาท :</p>
+                  <p className="pt-3">บทบาท :</p>
                 </div>
                 <div className="col-4 ms-3 mt-3">
                   <div className="col-9">
-                    <input type="text" className="form-control "></input>
+                    <input
+                      type="text"
+                      onChange={(e) => setSearchUsername(e.target.value)}
+                      className="form-control "
+                    ></input>
                     <select
                       className="form-select mt-3"
                       id="floatingSelectGrid"
-                      onChange={(e) => setUserType(e.target.value)}
+                      onChange={(e) => setSearchRole(e.target.value)}
                     >
-                      <option selected value="user">
-                        user
+                      <option selected value="">
+                        ไม่เลือก
                       </option>
-                      <option value="admin">admin</option>
+                      <option value="user">ผู้ใช้</option>
+                      <option value="admin">แอดมิน</option>
                     </select>
                   </div>
-                  <div className="btn btn-success mt-3 ">ค้นหาข้อมูล</div>
+                  <div onClick={search} className="btn btn-success mt-3 ">
+                    ค้นหาข้อมูล
+                  </div>
                 </div>
                 <div className="col-md-2 col-sm-3 ms-3 mt-3">
                   ชื่อ-นามสุกล :{" "}
                 </div>
                 <div className="col-3 mt-3">
                   <input
+                    onChange={(e) => setSearchName(e.target.value)}
                     type="text"
                     className="form-control "
                     id="floatingInput"
@@ -215,38 +272,42 @@ function ManageUser() {
           ผลการค้นหา
         </div>
         <div className=" ">
-          <div className="card w-100 ">
-            <form style={{ width: "95%" }}>
-              <div className="d-flex justify-content-center px-5 pt-3">
-                <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-                  <thead>
-                    <tr>
-                      <th scope="col">ลำดับ</th>
-                      <th scope="col">รหัสเจ้าหน้าที่</th>
-                      <th scope="col">ชื่อหัวเจ้าหน้าที่</th>
-                      <th scope="col">รหัสหน่วยงาน</th>
-                      <th scope="col">ชื่อหน่วยงาน</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>data1</td>
-                      <td>data1</td>
-                      <td>data1</td>
-                      <td>data1</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>data1</td>
-                      <td>data1</td>
-                      <td>data1</td>
-                      <td>data1</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </form>
+          <div className="d-flex justify-content-center p-5">
+            <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
+              <thead>
+                <tr>
+                  <th scope="col" style={{width : "10%"}}>ลำดับ</th>
+                  <th scope="col"style={{width : "20%"}}>วันที่</th>
+                  <th scope="col"style={{width : "20%"}}>ชื่อผู้ใช้</th>
+                  <th scope="col"style={{width : "30%"}}>ชื่อนามสกุล</th>
+                  <th scope="col"style={{width : "20%"}}>บทบาท</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={item.USERNAME}>
+                    <th scope="row">{index + startIndex + 1}</th>
+                    <td>{item.INSERT_DATE}</td>
+                    <td>{item.USERNAME}</td>
+                    <td>{item.FULLNAME}</td>
+                    <td>{item.ROLE}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <th colSpan="3" className="align-middle">รายการทั้งหมด: {dataLenth} รายการ</th>
+                  <th colSpan="3">
+                    <div className="text-end me-5">
+                      <div className="btn btn-primary px-3 mx-1" onClick={pre}>
+                        Pre
+                      </div>
+                      <div className="btn btn-primary " onClick={next}>
+                        Next
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
