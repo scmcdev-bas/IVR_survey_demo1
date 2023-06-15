@@ -1,8 +1,37 @@
 import React from "react";
-import { useState,useEffect } from "react";
-import { NavLink,useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import th from "./MessageComponent/UserMenuTH";
+import en from "./MessageComponent/UserMenuEN";
 function UserMenu() {
+  const [language, setLanguage] = useState(localStorage.getItem('language') || 'th');
+  const [languages, setLanguages] = useState({
+    th,
+    en,
+  });
+  const handleThai = () => {
+    const newLanguage = 'th';
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+    window.location.reload();
+  };
+  const handleENG = () => {
+    const newLanguage = 'en';
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('language');
+    console.log(storedLanguage)
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+    }
+    
+  }, []);
+
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const verifyToken = async () => {
@@ -23,10 +52,10 @@ function UserMenu() {
   useEffect(() => {
     verifyToken();
   }, []);
-  const logout = () =>{
-    localStorage.clear('token');
-    navigate('/')
-  }
+  const logout = () => {
+    localStorage.clear("token");
+    navigate("/");
+  };
   return (
     <div>
       <div
@@ -49,14 +78,21 @@ function UserMenu() {
                 aria-expanded="false"
                 className="dropdown-toggle"
               >
-                <span className="sr-only ">ภาษา</span>
+                <span className="sr-only ">{languages[language].language}</span>
               </button>
               <div className="dropdown-menu">
-                <div className="dropdown-item">
-                  <NavLink to="/">ภาษาไทย</NavLink>
+                <div className="dropdown-item" style={{ cursor: "pointer" }}
+                onClick={handleThai}>
+                  ภาษาไทย{" "}
                 </div>
-                <div className="dropdown-item" >
-                  <NavLink to="/test">English</NavLink>
+                <div
+                  className="dropdown-item"
+                  onClick={handleENG}
+
+                  style={{ cursor: "pointer" }}
+                  
+                >
+                  English{" "}
                 </div>
               </div>
             </div>
@@ -68,22 +104,13 @@ function UserMenu() {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style={{width : "150px"}}
-
+              style={{ width: "150px" }}
             >
-              <span className="h5 sr-only" >{username}&nbsp;&nbsp;</span>
+              <span className="h5 sr-only">{username}&nbsp;&nbsp;</span>
             </button>
             <div className="dropdown-menu">
-              <div className="dropdown-item"  >
-                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">ข้อมูลผู้ใช้งาน</NavLink>
-              </div>
-              <div className="dropdown-item" >
-                <NavLink  style={{color : "black",textDecoration : "none"}} to="/">หัวข้อ</NavLink>
-              </div>
-              <hr className="dropdown-divider"></hr>
-
-              <div className="logout dropdown-item"  onClick={logout}>
-               ออกจากระบบ
+              <div className="logout dropdown-item" onClick={logout}>
+                {languages[language].signOut}
               </div>
             </div>
           </div>
@@ -119,7 +146,7 @@ function UserMenu() {
                       })}
                       to="/userdashboard"
                     >
-                      แดชบอร์ด
+                      {languages[language].dashboard}
                     </NavLink>
                   </li>
                 </ul>
@@ -133,7 +160,7 @@ function UserMenu() {
                     className="h5 text-orange pt-2 pb-0 fs-5"
                     style={{ margin: 0, padding: 0, color: "orange" }}
                   >
-                    รายงาน
+                    {languages[language].report}
                   </p>{" "}
                   <div className="ps-2">
                     <NavLink
@@ -143,7 +170,7 @@ function UserMenu() {
                       })}
                       to="/pointreport"
                     >
-                      <div>&nbsp;รายงานการให้คะแนน</div>
+                      <div>&nbsp;{languages[language].ratingsReport}</div>
                     </NavLink>
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill "
@@ -152,7 +179,7 @@ function UserMenu() {
                       })}
                       to="/summarizesearchpointpage"
                     >
-                      <div>&nbsp;รายงานสรุปการให้คะแนน</div>
+                      <div>&nbsp;{languages[language].ratingSummaryReport}</div>
                     </NavLink>
                     <NavLink
                       className="nav_link  d-flex align-items-center bi bi-archive-fill py-2"
@@ -161,7 +188,7 @@ function UserMenu() {
                       })}
                       to="/searchpointpage"
                     >
-                      <div>&nbsp;รายงานกราฟข้อมูล</div>
+                      <div>&nbsp;{languages[language].gharpReport}</div>
                     </NavLink>
                   </div>
                 </ul>

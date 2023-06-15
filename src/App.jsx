@@ -28,7 +28,7 @@ function App() {
           
           <Route path="/searchpointpage" element={<><UserMenu/><SearchPointPage /></>} />
           
-          <Route path="/userdashboard" element={<><UserMenu/><DashboardUser/><Ghrap /></>} />
+          <Route path="/userdashboard" element={<><UserMenu/><DashboardUser/></>} />
 
 
           <Route path="/userchart" element={<><UserMenu/><Ghrap /></>} />
@@ -49,7 +49,7 @@ function App() {
 
           <Route path="/manageuser" element={<><AdminMenuPage /><ManageUser /></>} />
 
-          <Route path="/admindashboard" element={<><AdminMenuPage /><DashboardAdmin/><Ghrap /></>} />
+          <Route path="/admindashboard" element={<><AdminMenuPage /><DashboardAdmin/></>} />
 
           <Route path="*" element={<ErrorNotFoundPage/>}/>
 

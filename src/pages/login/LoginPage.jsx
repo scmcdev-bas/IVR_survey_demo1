@@ -4,8 +4,11 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function LoginPage() {
+  localStorage.setItem('language','th')
+  window.onload = function() {
+  }
   const [isVisible, setIsVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -17,13 +20,13 @@ function LoginPage() {
     setPassword(event.target.value);
     console.log(password);
   };
-
   const login = async () => {
     try {
       const response = await axios.post("http://localhost:3001/login", {
         username,
         password,
       });
+      console.log(response)
       const usertype = response.data.response.data;
       console.log(usertype);
       if (usertype === "admin") {
@@ -31,8 +34,8 @@ function LoginPage() {
       } else if (usertype === "user") {
         navigate("/userdashboard");
       }
-      localStorage.setItem('token', response.data.response.token);
-      console.log(response.data.response.token)
+      localStorage.setItem("token", response.data.response.token);
+      console.log(response.data.response.token);
     } catch (error) {
       setErrorMessage(error.response.data.error);
       setIsVisible(true);
@@ -44,9 +47,9 @@ function LoginPage() {
       const response = await axios.post("http://localhost:3001/verifylogin", {
         token,
       });
-      if (response.data === 'admin') {
+      if (response.data === "admin") {
         navigate("/admindashboard");
-      }else if (response.data === 'user') {
+      } else if (response.data === "user") {
         navigate("/userdashboard");
       }
     } catch (error) {
@@ -88,7 +91,11 @@ function LoginPage() {
                     placeholder="Password"
                   />
                 </div>
-                {isVisible ? <div className="alert alert-danger py-1 my-0 mx-3 ">{errorMessage}</div> : null}
+                {isVisible ? (
+                  <div className="alert alert-danger py-1 my-0 mx-3 ">
+                    {errorMessage}
+                  </div>
+                ) : null}
                 <hr className="my-4"></hr>
                 <div className="d-flex justify-content-center">
                   {" "}

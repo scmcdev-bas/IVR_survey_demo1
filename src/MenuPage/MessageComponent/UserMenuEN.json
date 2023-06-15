@@ -1,0 +1,11 @@
+{
+  "language": "language",
+  "signOut": "Sign out",
+
+  "dashboard": "dashboard",
+  "report": "report",
+  "ratingsReport": "Ratings report",
+  "ratingSummaryReport": "Ratings summary report",
+  "gharpReport": "Gharp report"
+
+}

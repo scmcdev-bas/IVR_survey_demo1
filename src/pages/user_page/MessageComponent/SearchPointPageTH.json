@@ -1,0 +1,18 @@
+{
+  "ratingsReport": "รายงานการให้คะแนน ",
+  "searchCondition": "เงื่อนไขการค้นหา ",
+
+  "date": "วันที่",
+  "startDate": "วันที่เริ่มต้น",
+  "endDate": "วันที่สิ้นสุด",
+  "reportType": "ประเภทรายงาน",
+  "byHour": "รายชั่วโมง",
+  "byDay": "รายวัน",
+  "byMonth": "รายเดือน",
+  "search": "ค้นหา",
+  "reset": "รีเซต",
+  "dowloadExcelfile":"ดาวน์โหลดไฟล์เอกซ์เซล",
+  "today": "วันนี้",
+  "totalCall": "สายทั้งหมด",
+  "resault" : "ผลการค้นหา"
+}

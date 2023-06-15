@@ -8,7 +8,7 @@
  }
  .childDiv {
     height: 100%;
-    background-color: green;
+    background-color: rgb(40, 173, 250);
     border-radius: 12px;
     text-align: left;
  }

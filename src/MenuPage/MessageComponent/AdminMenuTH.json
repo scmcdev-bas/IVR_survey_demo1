@@ -1,0 +1,14 @@
+{
+    "language": "ภาษา",
+    "signOut": "ออกจากระบบ",
+    "dashboard": "แดชบอร์ด",
+    "dataManagement": "การจัดการข้อมูล",
+    "supersisor": "หัวหน้างาน",
+    "supersisorData": "ข้อมูลหัวหน้างาน",
+    "importSupersisorData": "นำเข้าข้อมูลหัวหน้างาน",
+    "agent": "พนักงาน",
+    "agentData": "ข้อมูลพนักงาน",
+    "importAgentData": "นำเข้าข้อมูลพนักงาน",
+    "user": "ผู้ใช้งาน"  
+  }
+  

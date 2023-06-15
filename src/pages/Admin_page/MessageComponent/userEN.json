@@ -1,0 +1,27 @@
+{
+    "adduser" : "Add user",
+    "userData" : "User data",
+    "password" : "Password : ",
+    "inserdata" : "Insert data",
+    "close" : "close",
+    "searchCondition" : "Search Condition",
+    "username" : "Username : ",
+    "userFullname" : "User fullname : ",
+    "Role" : "Role : ",
+    "notSelect" : "Not select",
+    "user" : "User",
+    "admin" : "Admin",
+    "addUser" : "Add user",
+    "dataNo" : "No.",
+    "dataDate" : "Date",
+    "dataUsername" : "Username",
+    "dataFullname" : "User fullname",
+    "dataRole" : "Role",
+    "totalData" : "Total data : ",
+    "record" : "record",
+    "search" : "search",
+    "insertUser" : "Add user",
+    "serarchResult" : "Serarch result"
+
+
+}

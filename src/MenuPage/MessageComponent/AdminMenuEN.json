@@ -1,0 +1,15 @@
+{
+    "language": "language",
+    "signOut": "Sign out",
+    "dashboard": "Dashboard",
+    "dataManagement": "Data management",
+    "supersisor": "Supersisor",
+    "supersisorData": "Supersisor Data",
+    "importSupersisorData": "Import supersisor data",
+    "agent": "Agent",
+    "agentData": "Agent Data",
+    "importAgentData": "Import agent data",
+    "user": "User"  
+  }
+  
+

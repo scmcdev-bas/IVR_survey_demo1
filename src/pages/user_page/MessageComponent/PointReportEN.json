@@ -1,0 +1,31 @@
+{
+    "ratingsReport ": "Ratings report    ",
+    "searchConditions": "search conditions",
+    "dateandTime": "Date / time : ",
+    "startDate": "Start Date",
+    "endDate": "End date",
+    "reportType": "Report type :",
+    "assessmentTopics": "Assessment topics :",    
+    "supervisor": "Supervisor :",
+    "agent": "Agent :",
+    "custumertel": "Custumer Tel. :",
+    "rating": "Rating :",
+    "search" : "search",
+    "reset" : "reset",
+    "searchResult": "Search resul",
+    "no": "No.",
+    "name" : "Agent name",
+    "download" : "Download excel file",
+
+    "Individual": "Individual average (excluding no Input/No Match)",
+    "comparison": "All comparison percentages (excluding no Input/No Match)",
+    "totalCall": "Total call",
+    "rate5": "rating 5",
+    "rate4": "rating 4",
+    "rate3": "rating 3",
+    "rate2": "rating 2",
+    "rate1": "rating 1",
+    "totaldata": "Total data : "
+
+
+  }

@@ -1,13 +1,40 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import th from "./MessageComponent/ManagerDataTH";
+import en from "./MessageComponent/ManagerDataEN";
 function ManagerData() {
-  const [dataManager, setDataManager] = useState([]);
+  const languages = {
+    th,
+    en,
+  };
+  const language = localStorage.getItem("language");
+  const [dataLenth, setDataLenth] = useState("");
+  const [data, setData] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(9);
+  const [fullData, setFullData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [row, setRow] = useState(10);
+  const download = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/dowloadsupervisorxlsxfile",
+        { responseType: "blob" }
+      );
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([response.data]));
+      link.setAttribute("download", "SUPERVISOR.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    
     searchDataSQL("");
-    console.log(dataManager);
   }, []);
   const searchDataSQL = async (search) => {
     try {
@@ -17,12 +44,56 @@ function ManagerData() {
           search,
         }
       );
-      console.log(response.data);
-      setDataManager(response.data);
+      setData(response.data);
+      setDataLenth(response.data.length);
+      setFullData(response.data);
+      setshowdata();
     } catch (error) {
       console.log(error);
     }
   };
+  const setshowdata = () => {
+    setData(fullData.slice(startIndex, endIndex + 1));
+    console.log(data);
+    setPage((endIndex + 1) / 10);
+  };
+  const next = () => {
+    if (endIndex + 10 <= dataLenth) {
+      setStartIndex(startIndex + 10);
+      setEndIndex(endIndex + 10);
+    }
+  };
+  const pre = () => {
+    if (startIndex - 10 >= 0) {
+      setStartIndex(startIndex - 10);
+      setEndIndex(endIndex - 10);
+    }
+  };
+  const selectPage = (value) => {
+    if (parseInt(value) <= 0 || !Number.isInteger(parseInt(value))) {
+      setPage("");
+    } else if (parseInt(value) * 10 > dataLenth) {
+      value = Math.ceil(dataLenth) / 10;
+      console.log(value);
+      setStartIndex(parseInt(value) * 10 - 10);
+      setEndIndex(parseInt(value) * 10 - 1);
+      setPage(value);
+    } else {
+      setStartIndex(parseInt(value) * 10 - 10);
+      setEndIndex(parseInt(value) * 10 - 1);
+      setPage(value);
+    }
+  };
+  const showDataValue = (value) => {
+    setRow(value);
+  };
+  useEffect(() => {
+    setshowdata();
+  }, [fullData]);
+  useEffect(() => {
+    setshowdata();
+  }, [startIndex, endIndex]);
+
   return (
     <>
       <div
@@ -36,11 +107,11 @@ function ManagerData() {
           หัวหน้างาน / ข้อมูลหัวหน้างาน
         </div>
         <div>
-          <h3 className="p-2">ข้อมูลหัวหน้างาน</h3>
+          <h3 className="p-2">{languages[language].supervisorData}</h3>
         </div>
         <div className="card">
           <div className="h5  card-header align-items-center text-white p-2">
-            ผลการค้นหา
+            {languages[language].search_results}
           </div>
           <div className=" ">
             <div className="card w-100 ">
@@ -49,7 +120,9 @@ function ManagerData() {
                   <div className="btn btn-success m-3 mb-0 d-flex align-items-center">
                     <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
                       <i className="bi bi-download"></i>
-                      <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
+                      <div onClick={download} className="ps-2">
+                        {languages[language].download}
+                      </div>
                     </dir>
                   </div>
                 </div>
@@ -59,32 +132,94 @@ function ManagerData() {
                     type="text"
                     className="form-control m-3"
                     id="floatingInput"
-                    placeholder="พิมพ์เพื่อกรองข้อมูล......"
+                    placeholder={languages[language].search}
                     style={{ width: "300px" }}
                   ></input>
                 </div>
-
-                <div className="d-flex justify-content-center p-5">
-                  <table className="table table-hove shadow-sm p-3 mb-5 bg-body-tertiary rounded py-5">
+                <select
+                  onChange={(e) => showDataValue(e.target.value)}
+                  className="form-select ms-5"
+                  style={{ width: "100px" }}
+                  id="floatingSelectGrid"
+                >
+                  <option value="10" selected>
+                    10{" "}
+                  </option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+                <div className="d-flex justify-content-center p-5 pt-2">
+                  <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
                     <thead>
-                      <tr className="table-header">
-                        <th scope="col">ลำดับ</th>
-                        <th scope="col">รหัสหัวหน้างาน</th>
-                        <th scope="col">ชื่อหัวหน้างาน</th>
-                        <th scope="col">รหัสหน่วยงาน</th>
-                        <th scope="col">ชื่อหน่วยงาน</th>
+                      <tr className="table-header ">
+                        <th scope="col" style={{ width: "10%" }}>
+                          {languages[language].no}
+                        </th>
+                        <th scope="col" style={{ width: "20%" }}>
+                          {languages[language].supervisorID}
+                        </th>
+                        <th scope="col" style={{ width: "30%" }}>
+                          {languages[language].supervisorName}
+                        </th>
+                        <th scope="col" style={{ width: "20%" }}>
+                          {languages[language].supervisorCode}
+                        </th>
+                        <th scope="col" style={{ width: "20%" }}>
+                          {languages[language].agencyName}
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {dataManager.map((item, index) => (
-                        <tr key={item.SUPERVISOR_ID}>
-                          <th scope="row">{index + 1}</th>
+                      {data.map((item, index) => (
+                        <tr key={item.ID}>
+                          <th scope="row">{startIndex + index + 1}</th>
                           <td>{item.SUPERVISOR_ID}</td>
                           <td>{item.SUPERVISOR_NAME}</td>
                           <td>{item.DIVISION_ID}</td>
                           <td>{item.DIVISION_NAME}</td>
                         </tr>
                       ))}
+                      <th colSpan="2" className="align-middle">
+                        {languages[language].totalData} {dataLenth}{" "}
+                        {languages[language].record}
+                      </th>
+                      <th colSpan="2" className="align-middle">
+                        <div
+                          style={{ display: "flex", alignItems: "center" }}
+                          className="m-0 p-0"
+                        >
+                          <span>หน้า</span>
+                          <input
+                            onChange={(e) =>
+                              selectPage(parseInt(e.target.value))
+                            }
+                            type="text"
+                            className="form-control mx-2"
+                            id="pagenumber"
+                            value={page}
+                            style={{
+                              width: "60px",
+                              height: "30px",
+                              textAlign: "center",
+                            }}
+                          />
+                          <span>จากทั้งหมด {dataLenth / 10} หน้า</span>
+                        </div>
+                      </th>
+
+                      <th colSpan="2">
+                        <div className="text-end me-5">
+                          <div
+                            className="btn btn-primary px-3 mx-1"
+                            onClick={pre}
+                          >
+                            Pre
+                          </div>
+                          <div className="btn btn-primary" onClick={next}>
+                            Next
+                          </div>
+                        </div>
+                      </th>
                     </tbody>
                   </table>
                 </div>

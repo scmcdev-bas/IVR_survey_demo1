@@ -1,4 +1,7 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import th from "./MessageComponent/SearchPointPageTH";
+import en from "./MessageComponent/SearchPointPageEN";
 import {
   BarChart,
   CartesianGrid,
@@ -9,52 +12,57 @@ import {
   Bar,
 } from "recharts";
 function SearchPointPage() {
-  const dataset = [
-    { percent: 50, progressName: "dataset1" },
-    { percent: 20, progressName: "dataset2" },
-  ];
-  const data = [
-    {
-      name: "dataset 1",
-      1: 100,
-      2: 250,
-      3: 300,
-      4: 200,
-      5: 400,
-    },
-    {
-      name: "dataset 1",
-      1: 100,
-      2: 250,
-      3: 300,
-      4: 200,
-      5: 400,
-    },
-    {
-      name: "dataset 1",
-      1: 100,
-      2: 250,
-      3: 300,
-      4: 200,
-      5: 400,
-    },
-    {
-      name: "dataset 1",
-      1: 100,
-      2: 250,
-      3: 300,
-      4: 200,
-      5: 400,
-    },
-    {
-      name: "dataset 1",
-      1: 100,
-      2: 250,
-      3: 300,
-      4: 200,
-      5: 400,
-    },
-  ];
+  const languages = {
+    th,
+    en,
+  };
+  const language = localStorage.getItem("language");  
+  const [data, setData] = useState([]);
+  const [dataPercentage, setDataPercentage] = useState([]);
+  const [dataPercentageLenth, setDataPercentageLenth] = useState([]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+  const getdata = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/getdataset", {});
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getdatapercentage = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/getdatasetpercentage",
+        {}
+      );
+      setDataPercentageLenth(response.data[0]);
+      setDataPercentage(response.data[1]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+    getdatapercentage();
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
+    console.log(dataPercentage);
+    console.log(dataPercentageLenth);
+  }, [data, dataPercentage, dataPercentageLenth]);
+
   return (
     <div>
       <div
@@ -68,23 +76,21 @@ function SearchPointPage() {
           this is path
         </div>
         <div>
-          <h3 className="p-2">รายงานการให้คะแนน</h3>
+          <h3 className="p-2">{languages[language].ratingsReport}</h3>
         </div>
         <div className="card">
-          <div
-            className="h5 card-header align-items-center text-white p-2"
-          >
-            เงื่อนไขการค้นหา
+          <div className="h5 card-header align-items-center text-white p-2">
+          {languages[language].searchCondition}
           </div>
           <div className=" ">
             <div className="card w-100 ">
               <form style={{ width: "95%" }}>
                 <div className="row align-items-center p-2 mt-3 ">
                   <div className="col-2 px-5">
-                    <div>วันที่</div>
+                    <div>{languages[language].date}</div>
                   </div>
-                  <div className="col-3">วันที่เริ่มต้น</div>
-                  <div className="col-3">วันที่สิ้นสุด</div>
+                  <div className="col-3">{languages[language].startDate}</div>
+                  <div className="col-3">{languages[language].endDate}</div>
                 </div>
                 <div className="row align-items-center p-2">
                   <div className="col-2 "></div>
@@ -103,7 +109,7 @@ function SearchPointPage() {
                     ></input>
                   </div>
                   <div className="row p-2 mt-3">
-                    <div className="col-2 px-5">ประเภทรายงาน</div>
+                    <div className="col-2 px-5">{languages[language].reportType}</div>
                     <div className="col-3">
                       <div className="row px-4">
                         <div className="form-check ">
@@ -118,7 +124,7 @@ function SearchPointPage() {
                             className="form-check-label"
                             htmlFor="flexRadioDefault1"
                           >
-                            รายชั่วโมง{" "}
+                            {languages[language].byHour}{" "}
                           </label>
                         </div>
                         <div className="form-check">
@@ -132,7 +138,7 @@ function SearchPointPage() {
                             className="form-check-label"
                             htmlFor="flexRadioDefault2"
                           >
-                            รายวัน{" "}
+                            {languages[language].byDay}{" "}
                           </label>
                         </div>
                         <div className="form-check">
@@ -146,7 +152,7 @@ function SearchPointPage() {
                             className="form-check-label"
                             htmlFor="flexRadioDefault3"
                           >
-                            รายเดือน{" "}
+                            {languages[language].byMonth}{" "}
                           </label>
                         </div>
                       </div>
@@ -156,7 +162,7 @@ function SearchPointPage() {
                             style={{ width: "100px" }}
                             className="btn btn-success  "
                           >
-                            ค้นหา
+                            {languages[language].search}
                           </button>
                         </div>
                         <div className="col justify-content-start">
@@ -164,7 +170,7 @@ function SearchPointPage() {
                             style={{ width: "100px" }}
                             className="btn btn-warning  "
                           >
-                            รีเซต
+                            {languages[language].reset}
                           </button>
                         </div>
                       </div>
@@ -179,92 +185,100 @@ function SearchPointPage() {
           <div className="btn btn-success ">
             <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
               <i className="bi bi-download"></i>
-              <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
+              <div className="ps-2">{languages[language].dowloadExcelfile}</div>
             </dir>
           </div>
         </div>
-        <div className="d-flex justify-content-center align-items-center">
-        <div className="w-100" style={{ minWidth: "1200px"}}>
-          <div className="row p-0 m-0">
-            <div className="col-4 p-0">
-              <div className="card">
-                <div className="h5 card-header align-items-center text-white p-2">
-                  ผลการค้นหา
-                </div>
-                <div className=" ">
-                  <div className="card w-100 ">
-                    <div className="pt-3">
-                      {dataset.map((data, index) => (
-                        <div className="" key={index}>
-                          {" "}
-                          <p className="text px-3 py-0 my-0">
-                            {data.progressName}
-                          </p>
+        <div className="row p-0 m-0 mb-3">
+          <div className="col-4 p-0">
+            <div className="card">
+              <div className="h5 card-header align-items-center text-white p-2">
+              {languages[language].resault}
+              </div>
+              <div className=" ">
+                <div className="card w-100 ">
+                  <div className="pt-3">
+                    <div className="px-2 py-0 my-0">
+                      <h3 style={{ display: "inline" }}>{languages[language].today}</h3>
+                      <p className="ps-3 fs-5" style={{ display: "inline" }}>
+                      {currentTime.toLocaleTimeString()}
+                      </p>
+                      <p className="py-0 my-0" style={{ color: "#7e7e7e" }}>
+                        ({languages[language].totalCall} {dataPercentageLenth} )
+                      </p>
+                    </div>
+                    <div className="d-flex justify-content-center my-0 py-0">
+                      <hr style={{ width: "90%" }} />{" "}
+                    </div>
+                    {dataPercentage.map((data, index) => (
+                      <div className="" key={index}>
+                        <div className="mt-2">
+                          <h4 className="text px-3 py-0 my-0">{data.value}</h4>
                           <div className="d-flex">
                             <div className="col d-flex justify-content-start py-0 my-0 ps-3">
-                              {data.progressName}
+                              {data.name}{" "}
                             </div>
                             <div className="col d-flex justify-content-end py-0 my-0 pe-5">
-                              {data.progressName}
+                              {data.valuepercentage}%
                             </div>
                           </div>
                           <div className="mainDiv">
                             <div
                               className="childDiv"
-                              style={{ width: `${data.percent}%` }}
+                              style={{ width: `${data.valuepercentage}%` }}
                             ></div>
                           </div>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-8">
-              <div className="card">
-                <div className="h5 card-header align-items-center text-white p-2">
-                  ผลการค้นหา
-                </div>
-                <div className=" ">
-                  <div className="card w-100 ">
-                    <div className="d-flex justify-content-center py-3">
-                      <BarChart width={730} height={250} data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="1" fill="#8884d8" />
-                        <Bar dataKey="2" fill="#82ca9d" />
-                        <Bar dataKey="3" fill="#8884d8" />
-                        <Bar dataKey="4" fill="#82ca9d" />
-                        <Bar dataKey="5" fill="#82ca9d" />
-                      </BarChart>
-                    </div>
+          </div>
+          <div className="col-8">
+            <div className="card">
+              <div className="h5 card-header align-items-center text-white p-2">
+              {languages[language].resault}
+              </div>
+              <div className=" ">
+                <div className="card w-100 ">
+                  <div className="d-flex justify-content-center py-3">
+                    <BarChart width={730} height={250} data={data}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="Score1" fill="#008EBB" />
+                      <Bar dataKey="Score2" fill="#33CEFF" />
+                      <Bar dataKey="Score3" fill="#008EBB" />
+                      <Bar dataKey="Score4" fill="#33CEFF" />
+                      <Bar dataKey="Score5" fill="#008EBB" />
+                    </BarChart>
                   </div>
                 </div>
               </div>
-              <div className="card mt-3">
-                <div className="h5 card-header align-items-center text-white p-2">
-                  ผลการค้นหา
-                </div>
-                <div className=" ">
-                  <div className="card w-100 ">
-                    <div className="d-flex justify-content-center py-3">
-                      <BarChart width={730} height={250} data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="1" fill="#8884d8" />
-                        <Bar dataKey="2" fill="#82ca9d" />
-                        <Bar dataKey="3" fill="#8884d8" />
-                        <Bar dataKey="4" fill="#82ca9d" />
-                        <Bar dataKey="5" fill="#82ca9d" />
-                      </BarChart>
-                    </div>
+            </div>
+            <div className="card mt-3">
+              <div className="h5 card-header align-items-center text-white p-2">
+                ผลการค้นหา
+              </div>
+              <div className=" ">
+                <div className="card w-100 ">
+                  <div className="d-flex justify-content-center py-3">
+                    <BarChart width={730} height={250} data={data}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="Score1" fill="#008EBB" />
+                      <Bar dataKey="Score2" fill="#33CEFF" />
+                      <Bar dataKey="Score3" fill="#008EBB" />
+                      <Bar dataKey="Score4" fill="#33CEFF" />
+                      <Bar dataKey="Score5" fill="#008EBB" />
+                    </BarChart>
                   </div>
                 </div>
               </div>
@@ -272,8 +286,6 @@ function SearchPointPage() {
           </div>
         </div>
       </div>
-      </div>
-      
     </div>
   );
 }

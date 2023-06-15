@@ -1,0 +1,30 @@
+{
+    "ratingsReport ": "รายงานการให้คะแนน",
+    "searchConditions": "เงื่อนไขการค้นหา",
+    "dateandTime": "วันที่เวลา :",
+    "startDate": "วันที่เริ่มต้น",
+    "endDate": "วันที่สิ้นสุด",
+    "reportType": "ประเภทรายงาน :",
+    "assessmentTopics": "หัวข้อการประเมิน :",    
+    "supervisor": "หัวหน้างาน :",
+    "agent": "เจ้าหน้าที่ :",
+    "custumertel": "เบอร์โทรลูกค้า :",
+    "rating": "คะแนน :",
+    "search" : "ค้นหา",
+    "reset" : "รีเซต",
+    "download" : "ดาวน์โหลดไฟล์เอกซ์เซล",
+    "searchResult": "ผลการค้นหา",
+    "no": "ลำดับที่",
+    "name" : "ชื่อเจ้าหน้าที่",
+    "Individual": "ค่าเฉลี่ยรายบุคคล (ไม่รวม no Input/No Match)",
+    "comparison": "เปอร์เซ็นต์เปรียบเทียบทั้งหมด (ไม่รวม no Input/No Match)",
+    "totalCall": "สายทั้งหมดจำนวน",
+    "rate5": "คะแนน 5",
+    "rate4": "คะแนน 4",
+    "rate3": "คะแนน 3",
+    "rate2": "คะแนน 2",
+    "rate1": "คะแนน 1",
+    "totaldata": "รายการทั้งหมด : "
+
+  }
+

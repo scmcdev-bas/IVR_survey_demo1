@@ -1,29 +1,42 @@
+import axios from "axios";
 import React from "react";
-
+import th from "./MessageComponent/SummarizePointReportTH";
+import en from "./MessageComponent/SummarizePointReportEN";
 function SummarizePointReport() {
+  const languages = {
+    th,
+    en,
+  };
+  const language = localStorage.getItem("language");  
   return (
+    <div>
     <div
-      style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }}
+      style={{
+        paddingLeft: "270px",
+        paddingRight: "10px",
+        minWidth: "1200px",
+      }}
     >
       <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
         this is path
       </div>
       <div>
-        <h3 className="p-2">รายงานสรุปการให้คะแนน</h3>
+        <h3 className="p-2">{languages[language].ratingsReport}</h3>
       </div>
       <div className="card mb-3">
         <div className="h5 card-header align-items-center text-white p-2">
-          เงื่อนไขการค้นหา
+        {languages[language].searchConditions}
         </div>
         <div className="">
           <div className="" style={{ width: "90%" }}>
             <form>
               <div className="row align-items-center p-2 mt-3 ">
                 <div className="col-2 px-5">
-                  <div>วันที่เวลา :</div>
+                  <div>          {languages[language].dateandTime}
+</div>
                 </div>
-                <div className="col-5">วันที่เริ่มต้น</div>
-                <div className="col-3">วันที่สิ้นสุด</div>
+                <div className="col-5">{languages[language].startDate}</div>
+                <div className="col-3">{languages[language].endDate}</div>
               </div>
               <div className="row align-items-center p-2">
                 <div className="col-2 "></div>
@@ -31,7 +44,7 @@ function SummarizePointReport() {
                   <input
                     type="date"
                     className="form-control"
-                    placeholder="DD/MM/YY"
+                    placeholder="YYYY/MM/DD"
                   ></input>{" "}
                 </div>
                 <div className="col-2 d-flex">
@@ -54,7 +67,7 @@ function SummarizePointReport() {
                   <input
                     type="date"
                     className="form-control"
-                    placeholder="DD/MM/YY"
+                    placeholder="YYYY/MM/DD"
                   ></input>{" "}
                 </div>
                 <div className="col-2 d-flex">
@@ -73,7 +86,7 @@ function SummarizePointReport() {
                   ></input>{" "}
                 </div>
                 <div className="row p-2 mt-3">
-                  <div className="col-2 px-5 pt-1 ">ประเภทรายงาน :</div>
+                  <div className="col-2 px-5 pt-1 ">  {languages[language].reportType} :</div>
                   <div className="col-2 ms-2">
                     <select className="form-select" id="floatingSelectGrid">
                       <option selected>Open this select menu</option>
@@ -83,7 +96,7 @@ function SummarizePointReport() {
                     </select>
                   </div>
                   <div className="col-1"></div>
-                  <div className="col-2 px-5 pt-1 ">หัวข้อการประเมิน :</div>
+                  <div className="col-2 px-5 pt-1 ">  {languages[language].assessmentTopics}</div>
                   <div className="col-2 ms-1">
                     <select className="form-select" id="floatingSelectGrid">
                       <option selected>Open this select menu</option>
@@ -94,7 +107,7 @@ function SummarizePointReport() {
                   </div>
                 </div>
                 <div className="row p-2 z">
-                  <div className="col-2 px-5 pt-1 ">หัวหน้างาน :</div>
+                  <div className="col-2 px-5 pt-1 ">  {languages[language].supervisor}</div>
                   <div className="col-2 ms-2">
                     <select className="form-select" id="floatingSelectGrid">
                       <option selected>Open this select menu</option>
@@ -105,7 +118,7 @@ function SummarizePointReport() {
                   </div>
                   <div className="col-1"></div>
 
-                  <div className="col-2 px-5 pt-1 ">เจ้าหน้าที่ :</div>
+                  <div className="col-2 px-5 pt-1 ">  {languages[language].agent}</div>
                   <div className="col-2 ms-1">
                     <select className="form-select" id="floatingSelectGrid">
                       <option selected>Open this select menu</option>
@@ -116,7 +129,7 @@ function SummarizePointReport() {
                   </div>
                 </div>
                 <div className="row p-2 ">
-                  <div className="col-2 px-5 pt-1 ">เบอร์โทรลูกค้า :</div>
+                  <div className="col-2 px-5 pt-1 ">  {languages[language].custumertel}</div>
                   <div className="col-2 ms-2">
                     <input
                       type="text"
@@ -126,7 +139,7 @@ function SummarizePointReport() {
                   </div>
                 </div>
                 <div className="row p-2 ">
-                  <div className="col-2 px-5 pt-1 ">คะแนน :</div>
+                  <div className="col-2 px-5 pt-1 ">  {languages[language].rating}</div>
                   <div className="col-5 ms-2 d-flex mt-2">
                     <div className="me-3 ms-1">
                       <input
@@ -210,19 +223,19 @@ function SummarizePointReport() {
                 <div className="row mt-5 mb-3">
                   <div className="col-2"></div>
                   <div className="col-2">
-                    <button
+                    <div
                       style={{ width: "100px" }}
                       className="btn btn-success  "
                     >
-                      ค้นหา
-                    </button>
+                      {languages[language].search}
+                    </div>
                   </div>
                   <div className="col justify-content-start">
                     <button
                       style={{ width: "100px" }}
                       className="btn btn-warning  "
                     >
-                      รีเซต
+                      {languages[language].reset}
                     </button>
                   </div>
                 </div>
@@ -232,77 +245,67 @@ function SummarizePointReport() {
         </div>
       </div>{" "}
       <div className="pb-3">
-        <div className="py-0">
-          <div className="btn btn-success " >
-            <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
-              <i className="bi bi-download"></i>
-              <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
-            </dir>
-          </div>
+        <div className="btn btn-success ">
+          <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
+            <i className="bi bi-download"></i>
+            <div className="ps-2">  {languages[language].download}</div>
+          </dir>
         </div>
       </div>
       <div className="card mb-4">
         <div className="h5 card-header align-items-center text-white p-2">
-          ผลการค้นหา
+        {languages[language].searchResult}
         </div>
         <div className=" ">
           <div className="d-flex justify-content-center">
             <div className="row p-2 mt-3 " style={{ width: "100%" }}>
               <div>
                 <div className="px-5">
-                  <table className="table table-hove shadow-sm p-3 mb-5 bg-body-tertiary rounded py-5">
+                  <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                     <thead>
                       <tr className="table-header align-middle">
                         <th scope="col" style={{ width: "5%" }}>
-                          ลำดับที่
+                        {languages[language].no}
                         </th>
                         <th scope="col" style={{ width: "16%" }}>
-                          ชื่อเจ้าหน้าที่
+                        {languages[language].name}
                         </th>
                         <th scope="col" style={{ width: "10%" }}>
-                          ค่าเฉลี่ยรายบุคคล (ไม่รวม no Input/No Match)
-                        </th>
+                        {languages[language].Individual}                          </th>
                         <th scope="col" style={{ width: "10%" }}>
-                          เปอร์เซ๋นต์เปรียบเทียบทั้งหมด (ไม่รวม no Input/No
-                          Match)
+                        {languages[language].comparison}
                         </th>
                         <th scope="col" style={{ width: "5%" }}>
-                          สายทั้งหมดจำนวน
-                        </th>
+                        {languages[language].totalCall}                          </th>
                         <th scope="col" style={{ width: "2%" }}>
                           %
                         </th>
                         <th scope="col" style={{ width: "5%" }}>
-                          คำแนน 5 จำนวน
-                        </th>
+                        {languages[language].rate5}                          </th>
                         <th scope="col" style={{ width: "2%" }}>
                           %
                         </th>
                         <th scope="col" style={{ width: "5%" }}>
-                          คำแนน 4 จำนวน
-                        </th>
+                        {languages[language].rate4}                          </th>
                         <th scope="col" style={{ width: "2%" }}>
                           %
                         </th>
                         <th scope="col" style={{ width: "5%" }}>
-                          คำแนน 3 จำนวน
-                        </th>
+                        {languages[language].rate3}                          </th>
                         <th scope="col" style={{ width: "2%" }}>
                           %
                         </th>
                         <th scope="col" style={{ width: "5%" }}>
-                          คำแนน 2 จำนวน
-                        </th>
+                        {languages[language].rate2}                          </th>
                         <th scope="col" style={{ width: "2%" }}>
                           %
                         </th>
                         <th scope="col" style={{ width: "5%" }}>
-                          คำแนน 1{" "}
-                        </th>
+                        {languages[language].rate1}                          </th>
                         <th scope="col" style={{ width: "2%" }}>
                           %
                         </th>
-                        <th scope="col" style={{ width: "8%" }}>
+                        <th scope="col" style={{ width: "5%" }}>
                           No Input จำนวน
                         </th>
                         <th scope="col" style={{ width: "2%" }}>
@@ -316,56 +319,8 @@ function SummarizePointReport() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr className="">
-                        <th scope="" style={{ width: "5%" }}>
-                          ไม่มีข้อมูล
-                        </th>
-                        <th scope="col" style={{ width: "10%" }}></th>
-                        <th scope="col" style={{ width: "16%" }}></th>
-                        <th scope="col" style={{ width: "10%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "8%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                      </tr>
-
-                      <tr className="">
-                        <th scope="col" style={{ width: "5%" }}>
-                          0 รายการ{" "}
-                        </th>
-                        <th scope="col" style={{ width: "10%" }}></th>
-                        <th scope="col" style={{ width: "16%" }}></th>
-                        <th scope="col" style={{ width: "10%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "8%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                        <th scope="col" style={{ width: "5%" }}></th>
-                        <th scope="col" style={{ width: "2%" }}></th>
-                      </tr>
+                    <tbody style={{textAlign:"center"}}>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -375,6 +330,7 @@ function SummarizePointReport() {
         </div>
       </div>{" "}
     </div>
+  </div>
   );
 }
 

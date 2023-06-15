@@ -1,0 +1,26 @@
+{
+    "adduser" : "เพิ่มผู้ใช้งาน",
+    "password" : "รหัสผ่าน : ",
+    "inserdata" : "เพิ่มข้อมูล",
+    "close" : "ปิด",
+    "userData" : "ข้อมูลผู้ใช้งาน",
+    "searchCondition" : "เงื่อนไขการค้นหา",
+    "username" : "ชื่อผู้ใช้ : ",
+    "userFullname" : "ชื่อนามสกุล : ",
+    "Role" : "บทบท : ",
+    "notSelect" : "ไม่เลือก",
+    "user" : "ยูสเศอร์",
+    "admin" : "แอดมิน",
+    "addUser" : "เพิ่มผู้ใช้งาน",
+    "dataNo" : "ลำดับ",
+    "dataDate" : "วันที่",
+    "dataUsername" : "ชื่อผู้ใช้",
+    "dataFullname" : "ชื่อขนามสกุล",
+    "dataRole" : "บทบาท",
+    "totalData" : "รายการทั้งหมด : ",
+    "record" : "รายการ",    
+    "search" : "ค้นหา",
+    "insertUser" : "เพิ่มผู้ใช้งาน",
+    "serarchResult" : "ผลการค้นหา"
+
+}

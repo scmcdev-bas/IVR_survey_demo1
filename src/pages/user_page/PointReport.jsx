@@ -1,5 +1,62 @@
+import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import th from "./MessageComponent/PointReportTH";
+import en from "./MessageComponent/PointReportEN";
 function PointReport() {
+  const currentdate = new Date().toISOString().substring(0, 10);
+  const [startDate, setStartDate] = useState(currentdate);
+  const [endDate, setEndDate] = useState(currentdate);
+  const [data, setData] = useState([]);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(9);
+  const [dataLenth, setDataLenth] = useState("");
+  const [fullData, setFullData] = useState([]);
+  const languages = {
+    th,
+    en,
+  };
+  const language = localStorage.getItem("language");  
+  const next = () => {
+    if (endIndex + 1 < dataLenth) {
+      setStartIndex(startIndex + 10);
+      setEndIndex(endIndex + 10);
+    }
+  };
+  const pre = () => {
+    if (startIndex - 10 >= 0) {
+      setStartIndex(startIndex - 10);
+      setEndIndex(endIndex - 10);
+    }
+  };
+
+  const getdata = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/getpointreport",
+        {
+          startDate,
+          endDate,
+        }
+      );
+      setDataLenth(response.data.length);
+      setData(response.data.slice(startIndex, endIndex + 1));
+      setFullData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const slicedata = async () => {
+    setData(fullData.slice(startIndex, endIndex + 1));
+  };
+  useEffect(() => {
+    slicedata();
+  }, [startIndex, endIndex]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
     <div>
       <div
@@ -13,21 +70,21 @@ function PointReport() {
           this is path
         </div>
         <div>
-          <h3 className="p-2">รายงานการให้คะแนน</h3>
+          <h3 className="p-2">{languages[language].ratingsReport}</h3>
         </div>
         <div className="card mb-3">
           <div className="h5 card-header align-items-center text-white p-2">
-            เงื่อนไขการค้นหา
+            {languages[language].searchConditions}
           </div>
           <div className="">
             <div className="" style={{ width: "90%" }}>
               <form>
                 <div className="row align-items-center p-2 mt-3 ">
                   <div className="col-2 px-5">
-                    <div>วันที่เวลา :</div>
+                    <div> {languages[language].dateandTime}</div>
                   </div>
-                  <div className="col-5">วันที่เริ่มต้น</div>
-                  <div className="col-3">วันที่สิ้นสุด</div>
+                  <div className="col-5">{languages[language].startDate}</div>
+                  <div className="col-3">{languages[language].endDate}</div>
                 </div>
                 <div className="row align-items-center p-2">
                   <div className="col-2 "></div>
@@ -35,7 +92,8 @@ function PointReport() {
                     <input
                       type="date"
                       className="form-control"
-                      placeholder="DD/MM/YY"
+                      placeholder="YYYY/MM/DD"
+                      onChange={(e) => setStartDate(e.target.value)}
                     ></input>{" "}
                   </div>
                   <div className="col-2 d-flex">
@@ -58,7 +116,8 @@ function PointReport() {
                     <input
                       type="date"
                       className="form-control"
-                      placeholder="DD/MM/YY"
+                      placeholder="YYYY/MM/DD"
+                      onChange={(e) => setEndDate(e.target.value)}
                     ></input>{" "}
                   </div>
                   <div className="col-2 d-flex">
@@ -77,7 +136,10 @@ function PointReport() {
                     ></input>{" "}
                   </div>
                   <div className="row p-2 mt-3">
-                    <div className="col-2 px-5 pt-1 ">ประเภทรายงาน :</div>
+                    <div className="col-2 px-5 pt-1 ">
+                      {" "}
+                      {languages[language].reportType} :
+                    </div>
                     <div className="col-2 ms-2">
                       <select className="form-select" id="floatingSelectGrid">
                         <option selected>Open this select menu</option>
@@ -87,7 +149,10 @@ function PointReport() {
                       </select>
                     </div>
                     <div className="col-1"></div>
-                    <div className="col-2 px-5 pt-1 ">หัวข้อการประเมิน :</div>
+                    <div className="col-2 px-5 pt-1 ">
+                      {" "}
+                      {languages[language].assessmentTopics}
+                    </div>
                     <div className="col-2 ms-1">
                       <select className="form-select" id="floatingSelectGrid">
                         <option selected>Open this select menu</option>
@@ -98,7 +163,10 @@ function PointReport() {
                     </div>
                   </div>
                   <div className="row p-2 z">
-                    <div className="col-2 px-5 pt-1 ">หัวหน้างาน :</div>
+                    <div className="col-2 px-5 pt-1 ">
+                      {" "}
+                      {languages[language].supervisor}
+                    </div>
                     <div className="col-2 ms-2">
                       <select className="form-select" id="floatingSelectGrid">
                         <option selected>Open this select menu</option>
@@ -109,7 +177,10 @@ function PointReport() {
                     </div>
                     <div className="col-1"></div>
 
-                    <div className="col-2 px-5 pt-1 ">เจ้าหน้าที่ :</div>
+                    <div className="col-2 px-5 pt-1 ">
+                      {" "}
+                      {languages[language].agent}
+                    </div>
                     <div className="col-2 ms-1">
                       <select className="form-select" id="floatingSelectGrid">
                         <option selected>Open this select menu</option>
@@ -120,7 +191,10 @@ function PointReport() {
                     </div>
                   </div>
                   <div className="row p-2 ">
-                    <div className="col-2 px-5 pt-1 ">เบอร์โทรลูกค้า :</div>
+                    <div className="col-2 px-5 pt-1 ">
+                      {" "}
+                      {languages[language].custumertel}
+                    </div>
                     <div className="col-2 ms-2">
                       <input
                         type="text"
@@ -130,7 +204,10 @@ function PointReport() {
                     </div>
                   </div>
                   <div className="row p-2 ">
-                    <div className="col-2 px-5 pt-1 ">คะแนน :</div>
+                    <div className="col-2 px-5 pt-1 ">
+                      {" "}
+                      {languages[language].rating}
+                    </div>
                     <div className="col-5 ms-2 d-flex mt-2">
                       <div className="me-3 ms-1">
                         <input
@@ -214,19 +291,20 @@ function PointReport() {
                   <div className="row mt-5 mb-3">
                     <div className="col-2"></div>
                     <div className="col-2">
-                      <button
+                      <div
+                        onClick={getdata}
                         style={{ width: "100px" }}
                         className="btn btn-success  "
                       >
-                        ค้นหา
-                      </button>
+                        {languages[language].search}
+                      </div>
                     </div>
                     <div className="col justify-content-start">
                       <button
                         style={{ width: "100px" }}
                         className="btn btn-warning  "
                       >
-                        รีเซต
+                        {languages[language].reset}
                       </button>
                     </div>
                   </div>
@@ -239,72 +317,71 @@ function PointReport() {
           <div className="btn btn-success ">
             <dir className="d-flex p-0 m-0 justify-content-center align-items-center">
               <i className="bi bi-download"></i>
-              <div className="ps-2">ดาวน์โหลดไฟล์เอกซ์เซล</div>
+              <div className="ps-2"> {languages[language].download}</div>
             </dir>
           </div>
         </div>
         <div className="card mb-4">
           <div className="h5 card-header align-items-center text-white p-2">
-            ผลการค้นหา
+            {languages[language].searchResult}
           </div>
           <div className=" ">
             <div className="d-flex justify-content-center">
               <div className="row p-2 mt-3 " style={{ width: "100%" }}>
                 <div>
                   <div className="px-5">
-                    <table className="table table-hove shadow-sm p-3 mb-5 bg-body-tertiary rounded py-5">
+                    <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                       <thead>
                         <tr className="table-header align-middle">
                           <th scope="col" style={{ width: "5%" }}>
-                            ลำดับที่
+                            {languages[language].no}
                           </th>
                           <th scope="col" style={{ width: "16%" }}>
-                            ชื่อเจ้าหน้าที่
+                            {languages[language].name}
                           </th>
                           <th scope="col" style={{ width: "10%" }}>
-                            ค่าเฉลี่ยรายบุคคล (ไม่รวม no Input/No Match)
+                            {languages[language].Individual}{" "}
                           </th>
                           <th scope="col" style={{ width: "10%" }}>
-                            เปอร์เซ๋นต์เปรียบเทียบทั้งหมด (ไม่รวม no Input/No
-                            Match)
+                            {languages[language].comparison}
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            สายทั้งหมดจำนวน
+                            {languages[language].totalCall}{" "}
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            คำแนน 5 จำนวน
+                            {languages[language].rate5}{" "}
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            คำแนน 4 จำนวน
+                            {languages[language].rate4}{" "}
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            คำแนน 3 จำนวน
+                            {languages[language].rate3}{" "}
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            คำแนน 2 จำนวน
+                            {languages[language].rate2}{" "}
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            คำแนน 1{" "}
+                            {languages[language].rate1}{" "}
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
-                          <th scope="col" style={{ width: "8%" }}>
+                          <th scope="col" style={{ width: "5%" }}>
                             No Input จำนวน
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
@@ -318,55 +395,87 @@ function PointReport() {
                           </th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr className="">
-                          <th scope="" style={{ width: "5%" }}>
-                            ไม่มีข้อมูล
-                          </th>
-                          <th scope="col" style={{ width: "10%" }}></th>
-                          <th scope="col" style={{ width: "16%" }}></th>
-                          <th scope="col" style={{ width: "10%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "8%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                        </tr>
+                      <tbody style={{ textAlign: "center" }}>
+                        {data.map((item, index) => (
+                          <tr key={item.USERNAME}>
+                            <th scope="row">{index + startIndex + 1}</th>
+                            <td style={{ textAlign: "left" }}>
+                              {item.AGENT_NAME}
+                            </td>
+                            <td>{item.avgscore}</td>
+                            <td>
+                              {Math.floor(
+                                (item.sum * 100) /
+                                  (5 * (item.scorelenth + item.nodata))
+                              )}
+                            </td>
+                            <td>{item.scorelenth + item.nodata}</td>
+                            <td></td>
+                            <td>{item.Score5}</td>
+                            <td>
+                              {Math.floor(
+                                (item.Score5 * 100) /
+                                  (item.scorelenth + item.nodata)
+                              )}
+                            </td>
+                            <td>{item.Score4}</td>
+                            <td>
+                              {Math.floor(
+                                (item.Score4 * 100) /
+                                  (item.scorelenth + item.nodata)
+                              )}
+                            </td>
+                            <td>{item.Score3}</td>
+                            <td>
+                              {Math.floor(
+                                (item.Score3 * 100) /
+                                  (item.scorelenth + item.nodata)
+                              )}
+                            </td>
+                            <td>{item.Score2}</td>
+                            <td>
+                              {Math.floor(
+                                (item.Score2 * 100) /
+                                  (item.scorelenth + item.nodata)
+                              )}
+                            </td>
+                            <td>{item.Score1}</td>
+                            <td>
+                              {Math.floor(
+                                (item.Score1 * 100) /
+                                  (item.scorelenth + item.nodata)
+                              )}
+                            </td>
+                            <td>{item.nodata}</td>
 
-                        <tr className="">
-                          <th scope="col" style={{ width: "5%" }}>
-                            0 รายการ{" "}
+                            <td>
+                              {Math.floor(
+                                (item.nodata * 100) /
+                                  (item.scorelenth + item.nodata)
+                              )}
+                            </td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        ))}
+                        <tr>
+                          <th colSpan="3" className="align-middle">
+                            {languages[language].totaldata}
+                            {dataLenth}
                           </th>
-                          <th scope="col" style={{ width: "10%" }}></th>
-                          <th scope="col" style={{ width: "16%" }}></th>
-                          <th scope="col" style={{ width: "10%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "8%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
-                          <th scope="col" style={{ width: "5%" }}></th>
-                          <th scope="col" style={{ width: "2%" }}></th>
+                          <th colSpan="17">
+                            <div className="text-end me-5">
+                              <div
+                                className="btn btn-primary px-3 mx-1"
+                                onClick={pre}
+                              >
+                                Pre
+                              </div>
+                              <div className="btn btn-primary " onClick={next}>
+                                Next
+                              </div>
+                            </div>
+                          </th>
                         </tr>
                       </tbody>
                     </table>

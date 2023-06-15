@@ -1,0 +1,20 @@
+{
+  "ratingsReport": "Ratings report",
+  "searchCondition": "searchCondition ",
+
+  "date": "Date",
+  "startDate": "Start date",
+  "endDate": "End date",
+  "reportType": "Report type",
+  "byHour": "By hour",
+  "byDay": "By day",
+  "byMonth": "By month",
+  "search": "Search",
+  "reset": "Reset",
+  "dowloadExcelfile":"Dowload excel file",
+
+  "today": "today",
+  "totalCall": "total_call",
+  "resault" : "Result"
+  
+}

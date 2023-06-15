@@ -1,0 +1,13 @@
+{
+    "supervisorData": "ข้อมูลหัวหน้างาน",
+    "search_results": "ผลการค้นหา",
+    "download": "ดาวโหลดไฟล์เอกซ์เซล",
+    "search": "พิมพ์เพื่อกรองข้อมูล",
+    "no": "ลำดับ",
+    "supervisorID": "รหัสหัวหน้างาน",
+    "supervisorName": "ชื่อหัวหน้างาน",
+    "supervisorCode": "รหัสหน่วยงาน",
+    "agencyName": "ชื่อหน่วยงาน",
+    "totalData" : "จำนวนรายการทั้งหมด",
+    "record" : "รายการ"
+  }

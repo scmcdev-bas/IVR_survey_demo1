@@ -3,7 +3,16 @@ import Model from "react-modal";
 import "./popup.css";
 import axios from "axios";
 import { useEffect } from "react";
+import en from "./MessageComponent/userEN";
+import th from "./MessageComponent/userTH";
 function ManageUser() {
+  
+  const languages = {
+    th,
+    en,
+  };
+  const language = localStorage.getItem("language");  
+  
   const [username, setusername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,24 +27,26 @@ function ManageUser() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(9);
   const [dataLenth, setDataLenth] = useState("");
+  const [fullData,setFullData] = useState([])
 
   const search = async () => {
-    console.log(searchUsername, searchName, searchRole);
     try {
       const response = await axios.post("http://localhost:3001/searchuser", {
         searchUsername,
         searchName,
         searchRole,
       });
-      console.log(response.data);
-      console.log(startIndex);
-      console.log(endIndex);
       setDataLenth(response.data.length);
-      setData(response.data.slice(startIndex, endIndex + 1));
+      setFullData(response.data);
+      setshowdata()
     } catch (error) {
       console.log(error);
     }
   };
+  const setshowdata = () =>{
+    setData(fullData.slice(startIndex, endIndex + 1));
+    console.log(data)
+  }
   const next = () => {
     if (endIndex <= dataLenth) {
       setStartIndex(startIndex + 10);
@@ -49,12 +60,10 @@ function ManageUser() {
     }
   };
   useEffect(() => {
-    console.log(dataLenth);
-    console.log(endIndex);
-    search();
-  }, []);
+    setshowdata();
+  }, [fullData]);
   useEffect(() => {
-    search();
+    setshowdata();
   }, [startIndex, endIndex]);
   const adduser = () => {
     if (username === "" || name === "" || password === "") {
@@ -119,15 +128,15 @@ function ManageUser() {
         }}
       >
         <div className="card-header align-items-center text-white">
-          เพิ่มผู้ใช้งาน
+        {languages[language].adduser} 
         </div>
         <div className="w-100 p-4">
           <div className="row">
             <div className="col-6">
-              <p className="pt-3 ">ชื่อผู้ใช้ :</p>
+              <p className="pt-3 ">{languages[language].username}  :</p>
             </div>
             <div className="col-md-6 col-sm-8">
-              <p className="pt-3 ">ชื่อ-นามสกุล :</p>
+              <p className="pt-3 ">{languages[language].userFullname} </p>
             </div>
           </div>
           <div className="row">
@@ -154,10 +163,10 @@ function ManageUser() {
           </div>
           <div className="row">
             <div className="col-6">
-              <p className="pt-3 ">รหัสผ่าน :</p>
+              <p className="pt-3 ">{languages[language].password} </p>
             </div>
             <div className="col-6">
-              <p className="pt-3 ">บทบาท :</p>
+              <p className="pt-3 ">{languages[language].Role}</p>
             </div>
           </div>
           <div className="row">
@@ -178,16 +187,16 @@ function ManageUser() {
                 onChange={(e) => setUserType(e.target.value)}
               >
                 <option selected value="user">
-                  user
+                {languages[language].user} 
                 </option>
-                <option value="admin">admin</option>
+                <option value="admin">{languages[language].admin} </option>
               </select>
             </div>
           </div>
           <div className="row">
             <div className="col">
               <button className="btn btn-success mt-3" onClick={adduser}>
-                เพิ่มข้อมูล
+              {languages[language].addUser} 
               </button>
             </div>
             <div className="col-6 mt-3 d-flex justify-content-end mx-2">
@@ -195,29 +204,29 @@ function ManageUser() {
                 className="btn btn-danger px-4"
                 onClick={() => setVisible(false)}
               >
-                ปิด
+                {languages[language].close} 
               </button>
             </div>
           </div>
         </div>
       </Model>
       <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-        ผู้ใช้งาน
+        ยูสเซอร์
       </div>
       <div>
-        <h3 className="p-2">ข้อมูลผู้ใช้งาน</h3>
+        <h3 className="p-2">{languages[language].userData} </h3>
       </div>
       <div className="card">
         <div className="h5 card-header align-items-center text-white p-2">
-          เงื่อนไขการค้นหา
+        {languages[language].searchCondition} 
         </div>
         <div className=" ">
           <div className="card w-100 py-3">
             <form style={{ width: "95%" }}>
               <div className="row mb-3">
                 <div className="col-md-2 col-sm-3 ms-3 mt-3">
-                  <p className="pt-1">ชื่อผู้ใช้ :</p>
-                  <p className="pt-3">บทบาท :</p>
+                  <p className="pt-1">{languages[language].username} </p>
+                  <p className="pt-3">{languages[language].Role} </p>
                 </div>
                 <div className="col-4 ms-3 mt-3">
                   <div className="col-9">
@@ -232,19 +241,18 @@ function ManageUser() {
                       onChange={(e) => setSearchRole(e.target.value)}
                     >
                       <option selected value="">
-                        ไม่เลือก
+                      {languages[language].notSelect} 
                       </option>
-                      <option value="user">ผู้ใช้</option>
-                      <option value="admin">แอดมิน</option>
+                      <option value="user">{languages[language].user} </option>
+                      <option value="admin">{languages[language].admin} </option>
                     </select>
                   </div>
                   <div onClick={search} className="btn btn-success mt-3 ">
-                    ค้นหาข้อมูล
+                  {languages[language].search} 
                   </div>
                 </div>
                 <div className="col-md-2 col-sm-3 ms-3 mt-3">
-                  ชื่อ-นามสุกล :{" "}
-                </div>
+                {languages[language].userFullname}                 </div>
                 <div className="col-3 mt-3">
                   <input
                     onChange={(e) => setSearchName(e.target.value)}
@@ -259,7 +267,7 @@ function ManageUser() {
                     style={{ width: "200px" }}
                     onClick={() => setVisible(true)}
                   >
-                    เพิ่มผู้ใช้งาน
+                    {languages[language].insertUser} 
                   </div>
                 </div>
               </div>
@@ -269,18 +277,19 @@ function ManageUser() {
       </div>
       <div className="card mt-5">
         <div className="h5 card-header align-items-center text-white p-2">
-          ผลการค้นหา
+        {languages[language].serarchResult} 
+
         </div>
         <div className=" ">
           <div className="d-flex justify-content-center p-5">
             <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
-              <thead>
+              <thead className="table-header align-middle">
                 <tr>
-                  <th scope="col" style={{width : "10%"}}>ลำดับ</th>
-                  <th scope="col"style={{width : "20%"}}>วันที่</th>
-                  <th scope="col"style={{width : "20%"}}>ชื่อผู้ใช้</th>
-                  <th scope="col"style={{width : "30%"}}>ชื่อนามสกุล</th>
-                  <th scope="col"style={{width : "20%"}}>บทบาท</th>
+                  <th scope="col" style={{width : "10%"}}>{languages[language].dataNo} </th>
+                  <th scope="col"style={{width : "20%"}}>{languages[language].dataDate} </th>
+                  <th scope="col"style={{width : "20%"}}>{languages[language].dataUsername} </th>
+                  <th scope="col"style={{width : "30%"}}>{languages[language].dataFullname} </th>
+                  <th scope="col"style={{width : "20%"}}>{languages[language].dataRole} </th>
                 </tr>
               </thead>
               <tbody>
@@ -294,7 +303,7 @@ function ManageUser() {
                   </tr>
                 ))}
                 <tr>
-                  <th colSpan="3" className="align-middle">รายการทั้งหมด: {dataLenth} รายการ</th>
+                  <th colSpan="3" className="align-middle">{languages[language].totalData}  {dataLenth} {languages[language].record} </th>
                   <th colSpan="3">
                     <div className="text-end me-5">
                       <div className="btn btn-primary px-3 mx-1" onClick={pre}>

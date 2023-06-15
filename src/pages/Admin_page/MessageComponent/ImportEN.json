@@ -1,0 +1,9 @@
+{
+    "importSupervisor" : "Import supervisor data",
+    "importAgent" : "Import agent data",
+    "importData" : "Import data",
+    "dataType" : "Data type : ",
+    "dataExample" : "Data example : ",
+    "chooseFile" : "Choose file : "
+}
+

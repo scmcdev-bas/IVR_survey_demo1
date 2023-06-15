@@ -1,9 +1,37 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import en from "./MessageComponent/AdminMenuEN";
+import th from "./MessageComponent/AdminMenuTH";
 import axios from "axios";
 function AdminMenuPage() {
+  const [language, setLanguage] = useState(
+    localStorage.getItem("language") || "th"
+  );
+  const [languages, setLanguages] = useState({
+    th,
+    en,
+  });
+  const handleThai = () => {
+    const newLanguage = "th";
+    setLanguage(newLanguage);
+    localStorage.setItem("language", newLanguage);
+    window.location.reload();
+  };
+  const handleENG = () => {
+    const newLanguage = "en";
+    setLanguage(newLanguage);
+    localStorage.setItem("language", newLanguage);
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem("language");
+    console.log(storedLanguage);
+    if (storedLanguage) {
+      setLanguage(storedLanguage);
+    }
+  }, []);
   const navigate = useNavigate();
   const [isHidden, setIsHidden] = useState(true);
   const [isHidden2, setIsHidden2] = useState(true);
@@ -63,15 +91,14 @@ function AdminMenuPage() {
                 aria-expanded="false"
                 className="dropdown-toggle"
               >
-                <span className="sr-only ">ภาษา</span>
+                <span className="sr-only ">
+                  {" "}
+                  {languages[language].language}
+                </span>
               </button>
               <div className="dropdown-menu">
-                <div className="dropdown-item">
-                  <NavLink to="/">ภาษาไทย</NavLink>
-                </div>
-                <div className="dropdown-item">
-                  <NavLink to="/test">English</NavLink>
-                </div>
+                <div className="dropdown-item" onClick={handleThai}>ภาษาไทย</div>
+                <div className="dropdown-item" onClick={handleENG}>English</div>
               </div>
             </div>
           </div>
@@ -89,7 +116,7 @@ function AdminMenuPage() {
             <div className="dropdown-menu">
               <div className="dropdown-item"></div>
               <div className="logout dropdown-item" onClick={logout}>
-                ออกจากระบบ
+                {languages[language].signOut}
               </div>
             </div>
           </div>
@@ -125,7 +152,7 @@ function AdminMenuPage() {
                       })}
                       to="/admindashboard"
                     >
-                      แดชบอร์ด
+                      {languages[language].dashboard}
                     </NavLink>
                   </li>
                 </ul>
@@ -143,14 +170,14 @@ function AdminMenuPage() {
                       color: "orange",
                     }}
                   >
-                    การจัดการข้อมูล
+                    {languages[language].dataManagement}
                   </p>
                   <div
                     className="btn text-start ps-2 pb-0 pt-2 dropdown-toggle text-light nav_link d-flex align-items-center bi bi-archive-fill"
                     style={{ cursor: "pointer", fontSize: "18px" }}
                     onClick={handleClick}
                   >
-                    &nbsp;หัวหน้างาน
+                    &nbsp; {languages[language].supersisor}
                   </div>
                   <div
                     className=""
@@ -165,7 +192,7 @@ function AdminMenuPage() {
                           })}
                           to="/managerdata"
                         >
-                          ข้อมูลหัวหน้างาน
+                          {languages[language].supersisorData}
                         </NavLink>
                       </li>
                       <br></br>
@@ -177,7 +204,7 @@ function AdminMenuPage() {
                           })}
                           to="/insertmanagerdata"
                         >
-                          นำเข้าข้อมูลหัวหน้างาน
+                          {languages[language].importSupersisorData}
                         </NavLink>
                       </li>
                     </ul>
@@ -189,7 +216,7 @@ function AdminMenuPage() {
                     style={{ cursor: "pointer", fontSize: "18px" }}
                     onClick={handleClick2}
                   >
-                    &nbsp;พนักงาน
+                    &nbsp; {languages[language].agent}
                   </div>
                   <div
                     className=""
@@ -204,7 +231,7 @@ function AdminMenuPage() {
                           })}
                           to="/employeedata"
                         >
-                          ข้อมูลพนักงาน
+                          {languages[language].agentData}
                         </NavLink>
                       </li>
                       <br></br>
@@ -216,7 +243,7 @@ function AdminMenuPage() {
                           })}
                           to="/insertemployeedata"
                         >
-                          นำเข้าข้อมูลพนักงาน
+                          {languages[language].importAgentData}
                         </NavLink>
                       </li>
                     </ul>
@@ -230,7 +257,7 @@ function AdminMenuPage() {
                       })}
                       to="/manageuser"
                     >
-                      ผู้ใช้งาน
+                      {languages[language].user}
                     </NavLink>
                   </div>
                 </ul>
