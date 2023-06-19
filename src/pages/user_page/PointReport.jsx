@@ -5,19 +5,22 @@ import { useState } from "react";
 import th from "./MessageComponent/PointReportTH";
 import en from "./MessageComponent/PointReportEN";
 function PointReport() {
-
-  
   const currentdate = new Date().toISOString().substring(0, 10);
   const [startDate, setStartDate] = useState(currentdate);
   const [endDate, setEndDate] = useState(currentdate);
-  const [startTime,setStartTime] = useState("")
-  const [endTime,setEndTime] = useState("")
-  const [reportType,setReportType] = useState("");
-  const [reportTopic,setReportTopic] = useState("");
-  const [supervisor,setSupervisor] = useState("");
-  const [agent,setAgent] = useState("");
-  const [custumerTel,setCustumerTel] = useState("")
-
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [reportType, setReportType] = useState("");
+  const [reportTopic, setReportTopic] = useState("");
+  const [supervisor, setSupervisor] = useState("");
+  const [agent, setAgent] = useState("");
+  const [cusTel,setCusTel] = useState("");
+  const [value1, setValue1] = useState("1");
+  const [value2, setValue2] = useState("2");
+  const [value3, setValue3] = useState("3");
+  const [value4, setValue4] = useState("4");
+  const [value5, setValue5] = useState("5");
+  const [noData, setNoData] = useState("98");
 
   //use for display data
   const [data, setData] = useState([]);
@@ -28,14 +31,12 @@ function PointReport() {
   const [page, setPage] = useState(1);
   const [row, setRow] = useState(10);
 
-
-
   //usefor change language
   const languages = {
     th,
     en,
   };
-  const language = localStorage.getItem("language");  
+  const language = localStorage.getItem("language");
 
   //take data
   const getdata = async () => {
@@ -45,6 +46,14 @@ function PointReport() {
         {
           startDate,
           endDate,
+          value1,
+          value2,
+          value3,
+          value4,
+          value5,
+          noData,
+          reportTopic,
+          cusTel
         }
       );
       setDataLenth(response.data.length);
@@ -81,13 +90,13 @@ function PointReport() {
     if (parseInt(value) <= 0 || !Number.isInteger(parseInt(value))) {
       setPage("");
     } else if (parseInt(value) * row > dataLenth) {
-      value = Math.ceil(dataLenth/ row) ;
+      value = Math.ceil(dataLenth / row);
       setStartIndex(parseInt(value) * row - row);
       setEndIndex(parseInt(value) * row - 1);
-      setPage((value));
+      setPage(value);
     } else {
       setStartIndex(parseInt(value) * row - row);
-      setEndIndex((parseInt(value) * row - 1));
+      setEndIndex(parseInt(value) * row - 1);
       setPage(value);
     }
   };
@@ -96,19 +105,30 @@ function PointReport() {
     setStartIndex(0);
     setEndIndex(value - 1);
   };
-
-
-
-
+  const addValue1 = () => {
+    setValue1(value1 === "" ? "1" : "");
+  };
+  const addValue2 = () => {
+    setValue2(value2 === "" ? "2" : "");
+  };
+  const addValue3 = () => {
+    setValue3(value3 === "" ? "3" : "");
+  };
+  const addValue4 = () => {
+    setValue4(value4 === "" ? "4" : "");
+  };
+  const addValue5 = () => {
+    setValue5(value5 === "" ? "5" : "");
+  };
+  const addValueNoData = () => {
+    setNoData(noData === "" ? "98" : "");
+  };
   useEffect(() => {
     setshowdata();
   }, [fullData]);
   useEffect(() => {
     setshowdata();
   }, [startIndex, endIndex]);
-
-
-
 
   return (
     <div>
@@ -119,9 +139,10 @@ function PointReport() {
           minWidth: "1200px",
         }}
       >
-
         <div>
-          <h3 className="p-2 fw-bold pt-3">{languages[language].ratingsReport}</h3>
+          <h3 className="p-2 fw-bold pt-3">
+            {languages[language].ratingsReport}
+          </h3>
         </div>
         <div className="card mb-3">
           <div className="h5 card-header align-items-center text-white p-2">
@@ -193,10 +214,9 @@ function PointReport() {
                     </div>
                     <div className="col-2 ms-2">
                       <select className="form-select" id="floatingSelectGrid">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="" selected>
+                          Open this select menu
+                        </option>
                       </select>
                     </div>
                     <div className="col-1"></div>
@@ -205,11 +225,17 @@ function PointReport() {
                       {languages[language].assessmentTopics}
                     </div>
                     <div className="col-2 ms-1">
-                      <select className="form-select" id="floatingSelectGrid">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <select
+                        className="form-select"
+                        id="floatingSelectGrid"
+                        onChange={(e) => {
+                          setReportTopic(e.target.value);
+                        }}
+                      >
+                        <option value=""selected>{languages[language].noSelect}</option>
+                        <option value="1115">1115</option>
+                        <option value="CreditCard">CreditCard</option>
+                        <option value="ATM">ATM</option>
                       </select>
                     </div>
                   </div>
@@ -248,6 +274,7 @@ function PointReport() {
                     </div>
                     <div className="col-2 ms-2">
                       <input
+                      onChange={(e) => {setCusTel(e.target.value)}}
                         type="text"
                         className="form-control"
                         placeholder="090-000-0000"
@@ -262,7 +289,9 @@ function PointReport() {
                     <div className="col-5 ms-2 d-flex mt-2">
                       <div className="me-3 ms-1">
                         <input
+                          defaultChecked
                           type="checkbox"
+                          onChange={addValue1}
                           id="checkbox1"
                           name="customRadioInline1"
                           className="me-1"
@@ -273,6 +302,8 @@ function PointReport() {
                       </div>
                       <div className="me-3">
                         <input
+                          defaultChecked
+                          onChange={addValue2}
                           type="checkbox"
                           id="checkbox1"
                           name="customRadioInline1"
@@ -284,6 +315,8 @@ function PointReport() {
                       </div>
                       <div className="me-3">
                         <input
+                          defaultChecked
+                          onChange={addValue3}
                           type="checkbox"
                           id="checkbox1"
                           name="customRadioInline1"
@@ -295,6 +328,8 @@ function PointReport() {
                       </div>
                       <div className="me-3">
                         <input
+                          defaultChecked
+                          onChange={addValue4}
                           type="checkbox"
                           id="checkbox1"
                           name="customRadioInline1"
@@ -306,6 +341,8 @@ function PointReport() {
                       </div>
                       <div className="me-3">
                         <input
+                          defaultChecked
+                          onChange={addValue5}
                           type="checkbox"
                           id="checkbox1"
                           name="customRadioInline1"
@@ -317,6 +354,8 @@ function PointReport() {
                       </div>
                       <div className="me-3">
                         <input
+                          defaultChecked
+                          onChange={addValueNoData}
                           type="checkbox"
                           id="checkbox1"
                           name="customRadioInline1"
@@ -373,22 +412,21 @@ function PointReport() {
           </div>
         </div>
         <div className="card mb-4">
-          
           <div className="h5 card-header align-items-center text-white p-2">
             {languages[language].searchResult}
           </div>
           <div className=" ">
-          <select
-                  onChange={(e) => showDataValue(e.target.value)}
-                  className="form-select ms-5 mt-4"
-                  style={{ width: "100px" }}
-                >
-                  <option value="10" selected>
-                    10{" "}
-                  </option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                </select>
+            <select
+              onChange={(e) => showDataValue(e.target.value)}
+              className="form-select ms-5 mt-4"
+              style={{ width: "100px" }}
+            >
+              <option value="10" selected>
+                10{" "}
+              </option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
             <div className="d-flex justify-content-center">
               <div className="row p-2 mt-2 " style={{ width: "100%" }}>
                 <div>
@@ -399,62 +437,42 @@ function PointReport() {
                           <th scope="col" style={{ width: "5%" }}>
                             {languages[language].no}
                           </th>
+                          <th scope="col" style={{ width: "10%" }}>
+                            {languages[language].date}
+                          </th>
+                          <th scope="col" style={{ width: "8%" }}>
+                            {languages[language].time}{" "}
+                          </th>
+                          <th scope="col" style={{ width: "9%" }}>
+                            {languages[language].agentNo}
+                          </th>
                           <th scope="col" style={{ width: "16%" }}>
-                            {languages[language].name}
+                            {languages[language].agentName}{" "}
+                          </th>
+
+                          <th scope="col" style={{ width: "5%" }}>
+                            {languages[language].point}{" "}
+                          </th>
+                          <th scope="col" style={{ width: "5%" }}>
+                            {languages[language].topic}{" "}
                           </th>
                           <th scope="col" style={{ width: "10%" }}>
-                            {languages[language].Individual}{" "}
+                            {languages[language].supervisurName}{" "}
                           </th>
+
                           <th scope="col" style={{ width: "10%" }}>
-                            {languages[language].comparison}
+                            {languages[language].divisionName}{" "}
+                          </th>
+
+                          <th scope="col" style={{ width: "10%" }}>
+                            {languages[language].cusTel}{" "}
+                          </th>
+
+                          <th scope="col" style={{ width: "10%" }}>
+                            {languages[language].place}{" "}
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            {languages[language].totalCall}{" "}
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            {languages[language].rate5}{" "}
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            {languages[language].rate4}{" "}
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            {languages[language].rate3}{" "}
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            {languages[language].rate2}{" "}
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            {languages[language].rate1}{" "}
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            No Input 
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
-                          </th>
-                          <th scope="col" style={{ width: "5%" }}>
-                            No Match 
-                          </th>
-                          <th scope="col" style={{ width: "2%" }}>
-                            %
+                            {languages[language].rountPoint}{" "}
                           </th>
                         </tr>
                       </thead>
@@ -462,100 +480,62 @@ function PointReport() {
                         {data.map((item, index) => (
                           <tr key={item.USERNAME}>
                             <th scope="row">{index + startIndex + 1}</th>
+                            <td style={{ textAlign: "left" }}>{item.Date}</td>
+                            <td style={{ textAlign: "left" }}>{item.Time}</td>
+                            <td style={{ textAlign: "left" }}>
+                              {item.AGENT_ID}
+                            </td>
                             <td style={{ textAlign: "left" }}>
                               {item.AGENT_NAME}
                             </td>
-                            <td>{item.avgscore}</td>
-                            <td>
-                              {Math.floor(
-                                (item.sum * 100) /
-                                  (5 * (item.scorelenth + item.nodata))
-                              )}
+                            <td style={{ textAlign: "left" }}>
+                              {item.SURVEY_TOPIC}
                             </td>
-                            <td>{item.scorelenth + item.nodata}</td>
+                            <td> {item.SCORE}</td>
                             <td></td>
-                            <td>{item.Score5}</td>
-                            <td>
-                              {Math.floor(
-                                (item.Score5 * 100) /
-                                  (item.scorelenth + item.nodata)
-                              )}
-                            </td>
-                            <td>{item.Score4}</td>
-                            <td>
-                              {Math.floor(
-                                (item.Score4 * 100) /
-                                  (item.scorelenth + item.nodata)
-                              )}
-                            </td>
-                            <td>{item.Score3}</td>
-                            <td>
-                              {Math.floor(
-                                (item.Score3 * 100) /
-                                  (item.scorelenth + item.nodata)
-                              )}
-                            </td>
-                            <td>{item.Score2}</td>
-                            <td>
-                              {Math.floor(
-                                (item.Score2 * 100) /
-                                  (item.scorelenth + item.nodata)
-                              )}
-                            </td>
-                            <td>{item.Score1}</td>
-                            <td>
-                              {Math.floor(
-                                (item.Score1 * 100) /
-                                  (item.scorelenth + item.nodata)
-                              )}
-                            </td>
-                            <td>{item.nodata}</td>
+                            <td></td>
 
-                            <td>
-                              {Math.floor(
-                                (item.nodata * 100) /
-                                  (item.scorelenth + item.nodata)
-                              )}
+                            <td style={{ textAlign: "left" }}>{item.MSISDN}</td>
+                            <td style={{ textAlign: "left" }}>{item.PLACE}</td>
+                            <td style={{ textAlign: "left" }}>
+                              {item.ROUTE_POINT}
                             </td>
-                            <td></td>
-                            <td></td>
                           </tr>
                         ))}
                         <tr>
-                          <th colSpan="3" className="align-middle">
+                          <th colSpan="3" className="align-middle ">
                             {languages[language].totaldata}
-                            {dataLenth}
+                            {dataLenth} {languages[language].record}
                           </th>
-                          <th colSpan="11" className="align-middle">
-                        <div
-                          style={{ display: "flex", alignItems: "center" }}
-                          className="m-0 p-0"
-                        >
-                          <span> {languages[language].page}</span>
-                          <input
-                            onChange={(e) =>
-                              selectPage(parseInt(e.target.value))
-                            }
-                            type="text"
-                            className="form-control mx-2"
-                            id="pagenumber"
-                            value={page}
-                            style={{
-                              width: "60px",
-                              height: "30px",
-                              textAlign: "center",
-                            }}
-                            disabled={Math.ceil(dataLenth / row) <= "1"}
-
-                          />
-                          <span>
-                            {languages[language].of}{" "}
-                            {Math.ceil(dataLenth / row)}{" "}
-                            {languages[language].page}
-                          </span>
-                        </div>
-                      </th>
-                          <th colSpan="8">
+                          <th colSpan="4" className="align-middle ps-5">
+                            <div
+                              style={{ display: "flex", alignItems: "center" }}
+                              className="m-0 p-0"
+                            >
+                              <span> {languages[language].page}</span>
+                              <input
+                                onChange={(e) =>
+                                  selectPage(parseInt(e.target.value))
+                                }
+                                type="text"
+                                className="form-control mx-2"
+                                id="pagenumber"
+                                value={page}
+                                style={{
+                                  width: "60px",
+                                  height: "30px",
+                                  textAlign: "center",
+                                }}
+                                disabled={Math.ceil(dataLenth / row) <= "1"}
+                              />
+                              <span>
+                                {languages[language].of}{" "}
+                                {Math.ceil(dataLenth / row)}{" "}
+                                {languages[language].page}
+                              </span>
+                            </div>
+                          </th>
+                          <th colSpan="4">
                             <div className="text-end me-5">
                               <div
                                 className="btn btn-primary px-3 mx-1"

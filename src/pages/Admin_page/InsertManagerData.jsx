@@ -18,7 +18,7 @@ function InsertManagerData() {
     event.preventDefault();
 
     if (!selectedFile) {
-      alert("กรุณาเลือกไฟล์ที่ต้องการอัปโหลด");
+      alert("please select file to upload");
       return;
     }
     try {
