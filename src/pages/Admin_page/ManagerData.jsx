@@ -16,6 +16,7 @@ function ManagerData() {
   const [fullData, setFullData] = useState([]);
   const [page, setPage] = useState(1);
   const [row, setRow] = useState(10);
+
   const download = async () => {
     try {
       const response = await axios.get(
@@ -55,37 +56,41 @@ function ManagerData() {
   const setshowdata = () => {
     setData(fullData.slice(startIndex, endIndex + 1));
     console.log(data);
-    setPage((endIndex + 1) / 10);
+    setPage((endIndex + 1) / row);
   };
   const next = () => {
-    if (endIndex + 10 <= dataLenth) {
-      setStartIndex(startIndex + 10);
-      setEndIndex(endIndex + 10);
+    const value = parseInt(row);
+    console.log(startIndex + value);
+    if (startIndex + value < dataLenth) {
+      setStartIndex(startIndex + value);
+      setEndIndex(endIndex + value);
     }
   };
   const pre = () => {
-    if (startIndex - 10 >= 0) {
-      setStartIndex(startIndex - 10);
-      setEndIndex(endIndex - 10);
+    const value = parseInt(row);
+    if (startIndex - value >= 0) {
+      setStartIndex(startIndex - value);
+      setEndIndex(endIndex - value);
     }
   };
   const selectPage = (value) => {
     if (parseInt(value) <= 0 || !Number.isInteger(parseInt(value))) {
       setPage("");
-    } else if (parseInt(value) * 10 > dataLenth) {
-      value = Math.ceil(dataLenth) / 10;
-      console.log(value);
-      setStartIndex(parseInt(value) * 10 - 10);
-      setEndIndex(parseInt(value) * 10 - 1);
-      setPage(value);
+    } else if (parseInt(value) * row > dataLenth) {
+      value = Math.ceil(dataLenth/ row) ;
+      setStartIndex(parseInt(value) * row - row);
+      setEndIndex(parseInt(value) * row - 1);
+      setPage((value));
     } else {
-      setStartIndex(parseInt(value) * 10 - 10);
-      setEndIndex(parseInt(value) * 10 - 1);
+      setStartIndex(parseInt(value) * row - row);
+      setEndIndex((parseInt(value) * row - 1));
       setPage(value);
     }
   };
   const showDataValue = (value) => {
     setRow(value);
+    setStartIndex(0);
+    setEndIndex(value - 1);
   };
   useEffect(() => {
     setshowdata();
@@ -93,21 +98,18 @@ function ManagerData() {
   useEffect(() => {
     setshowdata();
   }, [startIndex, endIndex]);
-
   return (
     <>
-      <div
+      <div 
         style={{
           paddingLeft: "270px",
           paddingRight: "10px",
           minWidth: "1200px",
         }}
       >
-        <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-          หัวหน้างาน / ข้อมูลหัวหน้างาน
-        </div>
+
         <div>
-          <h3 className="p-2">{languages[language].supervisorData}</h3>
+          <h3 className="p-2 fw-bold pt-3">{languages[language].supervisorData}</h3>
         </div>
         <div className="card">
           <div className="h5  card-header align-items-center text-white p-2">
@@ -140,7 +142,6 @@ function ManagerData() {
                   onChange={(e) => showDataValue(e.target.value)}
                   className="form-select ms-5"
                   style={{ width: "100px" }}
-                  id="floatingSelectGrid"
                 >
                   <option value="10" selected>
                     10{" "}
@@ -188,7 +189,7 @@ function ManagerData() {
                           style={{ display: "flex", alignItems: "center" }}
                           className="m-0 p-0"
                         >
-                          <span>หน้า</span>
+                          <span> {languages[language].page}</span>
                           <input
                             onChange={(e) =>
                               selectPage(parseInt(e.target.value))
@@ -202,8 +203,13 @@ function ManagerData() {
                               height: "30px",
                               textAlign: "center",
                             }}
+                            disabled={Math.ceil(dataLenth / row) <= "1"}
                           />
-                          <span>จากทั้งหมด {dataLenth / 10} หน้า</span>
+                          <span>
+                            {languages[language].of}{" "}
+                            {Math.ceil(dataLenth / row)}{" "}
+                            {languages[language].page}
+                          </span>
                         </div>
                       </th>
 

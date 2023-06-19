@@ -16,11 +16,13 @@ function SearchPointPage() {
     th,
     en,
   };
-  const language = localStorage.getItem("language");  
+  const language = localStorage.getItem("language");
   const [data, setData] = useState([]);
   const [dataPercentage, setDataPercentage] = useState([]);
   const [dataPercentageLenth, setDataPercentageLenth] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [startDate, setStartDate] = useState("2019-06-06");
+  const [endDate, setEndDate] = useState("2024-06-06");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,17 +35,18 @@ function SearchPointPage() {
   }, []);
   const getdata = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/getdataset", {});
+      const response = await axios.post(
+        "http://localhost:3001/getdatafotsearchgharp",
+        { startDate, endDate }
+      );
       setData(response.data);
     } catch (error) {
       console.log(error);
     }
-  };
-  const getdatapercentage = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/getdatasetpercentage",
-        {}
+      const response = await axios.post(
+        "http://localhost:3001/getdataforsearchpercentage",
+        { startDate, endDate }
       );
       setDataPercentageLenth(response.data[0]);
       setDataPercentage(response.data[1]);
@@ -52,9 +55,9 @@ function SearchPointPage() {
     }
   };
 
+
   useEffect(() => {
     getdata();
-    getdatapercentage();
   }, []);
 
   useEffect(() => {
@@ -72,15 +75,12 @@ function SearchPointPage() {
           minWidth: "1200px",
         }}
       >
-        <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-          this is path
-        </div>
         <div>
-          <h3 className="p-2">{languages[language].ratingsReport}</h3>
+          <h3 className="p-2 fw-bold pt-3">{languages[language].ratingsReport}</h3>
         </div>
         <div className="card">
           <div className="h5 card-header align-items-center text-white p-2">
-          {languages[language].searchCondition}
+            {languages[language].searchCondition}
           </div>
           <div className=" ">
             <div className="card w-100 ">
@@ -96,6 +96,9 @@ function SearchPointPage() {
                   <div className="col-2 "></div>
                   <div className="col-3">
                     <input
+                      onChange={(e) => {
+                        setStartDate(e.target.value);
+                      }}
                       type="date"
                       className="form-control"
                       placeholder="DD/MM/YY"
@@ -103,13 +106,18 @@ function SearchPointPage() {
                   </div>
                   <div className="col-3">
                     <input
+                      onChange={(e) => {
+                        setEndDate(e.target.value);
+                      }}
                       type="date"
                       className="form-control"
                       placeholder="DD/MM/YY"
                     ></input>
                   </div>
                   <div className="row p-2 mt-3">
-                    <div className="col-2 px-5">{languages[language].reportType}</div>
+                    <div className="col-2 px-5">
+                      {languages[language].reportType}
+                    </div>
                     <div className="col-3">
                       <div className="row px-4">
                         <div className="form-check ">
@@ -158,12 +166,13 @@ function SearchPointPage() {
                       </div>
                       <div className="row mt-5">
                         <div className="col">
-                          <button
+                          <div
+                            onClick={getdata}
                             style={{ width: "100px" }}
                             className="btn btn-success  "
                           >
                             {languages[language].search}
-                          </button>
+                          </div>
                         </div>
                         <div className="col justify-content-start">
                           <button
@@ -193,15 +202,17 @@ function SearchPointPage() {
           <div className="col-4 p-0">
             <div className="card">
               <div className="h5 card-header align-items-center text-white p-2">
-              {languages[language].resault}
+                {languages[language].resault}
               </div>
               <div className=" ">
                 <div className="card w-100 ">
                   <div className="pt-3">
                     <div className="px-2 py-0 my-0">
-                      <h3 style={{ display: "inline" }}>{languages[language].today}</h3>
+                      <h3 style={{ display: "inline" }}>
+                        {languages[language].today}
+                      </h3>
                       <p className="ps-3 fs-5" style={{ display: "inline" }}>
-                      {currentTime.toLocaleTimeString()}
+                        {currentTime.toLocaleTimeString()}
                       </p>
                       <p className="py-0 my-0" style={{ color: "#7e7e7e" }}>
                         ({languages[language].totalCall} {dataPercentageLenth} )
@@ -239,7 +250,7 @@ function SearchPointPage() {
           <div className="col-8">
             <div className="card">
               <div className="h5 card-header align-items-center text-white p-2">
-              {languages[language].resault}
+                {languages[language].resault}
               </div>
               <div className=" ">
                 <div className="card w-100 ">

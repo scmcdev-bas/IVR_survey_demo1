@@ -4,9 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function LoginPage() {
-  localStorage.setItem('language','th')
-  window.onload = function() {
-  }
+  window.onload = function () {};
   const [isVisible, setIsVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [username, setUsername] = useState("");
@@ -26,12 +24,14 @@ function LoginPage() {
         username,
         password,
       });
-      console.log(response)
+      console.log(response);
       const usertype = response.data.response.data;
       console.log(usertype);
       if (usertype === "admin") {
+        localStorage.setItem("language", "th");
         navigate("/admindashboard");
       } else if (usertype === "user") {
+        localStorage.setItem("language", "th");
         navigate("/userdashboard");
       }
       localStorage.setItem("token", response.data.response.token);
@@ -72,7 +72,7 @@ function LoginPage() {
                 <h1 className="">User Login</h1>
 
                 <div className="form-outline mb-4 pt-3">
-                  <p className="text-start">ชื่อผู้ใช้งาน :</p>
+                  <p className="text-start">Username :</p>
                   <input
                     onChange={handleUsername}
                     type="email"
@@ -81,7 +81,7 @@ function LoginPage() {
                     placeholder="Username"
                   />
                 </div>
-                <p className="text-start">รหัสผ่าน :</p>
+                <p className="text-start">Password :</p>
                 <div className="form-outline mb-4">
                   <input
                     onChange={handlePassword}

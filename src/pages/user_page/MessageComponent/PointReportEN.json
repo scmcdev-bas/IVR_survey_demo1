@@ -1,5 +1,5 @@
 {
-    "ratingsReport ": "Ratings report    ",
+    "ratingsReport": "Ratings report",
     "searchConditions": "search conditions",
     "dateandTime": "Date / time : ",
     "startDate": "Start Date",
@@ -25,7 +25,9 @@
     "rate3": "rating 3",
     "rate2": "rating 2",
     "rate1": "rating 1",
-    "totaldata": "Total data : "
+    "totaldata": "Total data : ",
+    "page" : "page",
+    "of" : "of"
 
 
   }

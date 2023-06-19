@@ -9,7 +9,9 @@
     "supervisorCode": "Agency code ",
     "agencyName": "Agency name",
     "totalData" : "Total record",
-    "record" : "record"
+    "record" : "record",
+    "page" : "page",
+    "of" : "of"
   }
 
 

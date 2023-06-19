@@ -40,11 +40,9 @@ function InsertEmployeeData() {
     <div
       style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }}
     >
-      <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-        พนักงาน / นำเข้าข้อมูลพนักงาน
-      </div>
+
       <div>
-        <h3 className="p-2">{languages[language].importAgent} </h3>
+        <h3 className="p-2 fw-bold pt-3">{languages[language].importAgent} </h3>
       </div>
       <div className="card">
         <div className="h5  card-header align-items-center text-white p-2">

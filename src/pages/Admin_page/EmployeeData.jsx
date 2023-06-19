@@ -12,7 +12,9 @@ function EmployeeData() {
   const [data, setData] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(9);
-  const [fullData,setFullData] = useState([])
+  const [fullData, setFullData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [row, setRow] = useState(10);
   const download = async () => {
     try {
       const response = await axios.get(
@@ -43,26 +45,48 @@ function EmployeeData() {
       setData(response.data);
       setDataLenth(response.data.length);
       setFullData(response.data);
-      setshowdata()
+      setshowdata();
     } catch (error) {
       console.log(error);
     }
   };
-  const setshowdata = () =>{
+  const setshowdata = () => {
     setData(fullData.slice(startIndex, endIndex + 1));
-    console.log(data)
-  }
+    console.log(data);
+    setPage((endIndex + 1) / row);
+  };
   const next = () => {
-    if (endIndex+10 <= dataLenth) {
-      setStartIndex(startIndex + 10);
-      setEndIndex(endIndex + 10);
+    const value = parseInt(row);
+    if (startIndex + value < dataLenth) {
+      setStartIndex(startIndex + value);
+      setEndIndex(endIndex + value);
     }
   };
   const pre = () => {
-    if (startIndex - 10 >= 0) {
-      setStartIndex(startIndex - 10);
-      setEndIndex(endIndex - 10);
+    const value = parseInt(row);
+    if (startIndex - value >= 0) {
+      setStartIndex(startIndex - value);
+      setEndIndex(endIndex - value);
     }
+  };
+  const selectPage = (value) => {
+    if (parseInt(value) <= 0 || !Number.isInteger(parseInt(value))) {
+      setPage("");
+    } else if (parseInt(value) * row > dataLenth) {
+      value = Math.ceil(dataLenth/ row) ;
+      setStartIndex(parseInt(value) * row - row);
+      setEndIndex(parseInt(value) * row - 1);
+      setPage((value));
+    } else {
+      setStartIndex(parseInt(value) * row - row);
+      setEndIndex((parseInt(value) * row - 1));
+      setPage(value);
+    }
+  };
+  const showDataValue = (value) => {
+    setRow(value);
+    setStartIndex(0);
+    setEndIndex(value - 1);
   };
   useEffect(() => {
     setshowdata();
@@ -72,18 +96,15 @@ function EmployeeData() {
   }, [startIndex, endIndex]);
   return (
     <>
-      <div
+      <div className="mb-3"
         style={{
           paddingLeft: "270px",
           paddingRight: "10px",
           minWidth: "1200px",
         }}
       >
-        <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-          พนักงาน / ข้อมูลพนักงาน
-        </div>
         <div>
-          <h3 className="p-2">{languages[language].agentData}</h3>
+          <h3 className="p-2 fw-bold pt-3">{languages[language].agentData}</h3>
         </div>
         <div className="card">
           <div className="h5  card-header align-items-center text-white p-2">
@@ -113,8 +134,19 @@ function EmployeeData() {
                     style={{ width: "300px" }}
                   ></input>
                 </div>
-
-                <div className="d-flex justify-content-center p-5">
+                <select
+                  onChange={(e) => showDataValue(e.target.value)}
+                  className="form-select ms-5"
+                  style={{ width: "100px" }}
+                >
+                  <option value="10" selected>
+                    10{" "}
+                  </option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+                <div className="d-flex justify-content-center p-5 pt-2">
+                  
                   <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded ">
                     <thead>
                       <tr className="table-header">
@@ -151,13 +183,49 @@ function EmployeeData() {
                         </tr>
                       ))}
                       <th colSpan="2" className="align-middle">
-                        {languages[language].totalData} {dataLenth} {languages[language].record}
+                        {languages[language].totalData} {dataLenth}{" "}
+                        {languages[language].record}
                       </th>
-                      
-                      <th colSpan="2">
+                      <th colSpan="2" className="align-middle">
+                        <div
+                          style={{ display: "flex", alignItems: "center" }}
+                          className="m-0 p-0"
+                        >
+                          <span> {languages[language].page}</span>
+                          <input
+                            onChange={(e) =>
+                              selectPage(parseInt(e.target.value))
+                            }
+                            type="text"
+                            className="form-control mx-2"
+                            id="pagenumber"
+                            value={page}
+                            style={{
+                              width: "60px",
+                              height: "30px",
+                              textAlign: "center",
+                            }}
+                            disabled={Math.ceil(dataLenth / row) <= "1"}
+
+                          />
+                          <span>
+                            {languages[language].of}{" "}
+                            {Math.ceil(dataLenth / row)}{" "}
+                            {languages[language].page}
+                          </span>
+                        </div>
+                      </th>
+                      <th colSpan="1">
                         <div className="text-end me-5">
-                          <div className="btn btn-primary px-3 mx-1" onClick={pre}>Pre</div>
-                          <div className="btn btn-primary" onClick={next}>Next</div>
+                          <div
+                            className="btn btn-primary px-3 mx-1"
+                            onClick={pre}
+                          >
+                            Pre
+                          </div>
+                          <div className="btn btn-primary" onClick={next}>
+                            Next
+                          </div>
                         </div>
                       </th>
                     </tbody>

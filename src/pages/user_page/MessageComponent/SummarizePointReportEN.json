@@ -1,5 +1,5 @@
 {
-  "ratingsReport ": "Rating summary report  ",
+  "ratingsReport": "Rating summary report  ",
   "searchConditions": "search conditions",
   "dateandTime": "Date / time : ",
   "startDate": "Start Date",
@@ -16,6 +16,7 @@
   "no": "No.",
   "name" : "Agent name",
   "download" : "Download excel file",
+  "totaldata": "Total data : ",
 
   "Individual": "Individual average (excluding no Input/No Match)",
   "comparison": "All comparison percentages (excluding no Input/No Match)",
@@ -24,7 +25,9 @@
   "rate4": "rating 4",
   "rate3": "rating 3",
   "rate2": "rating 2",
-  "rate1": "rating 1"
+  "rate1": "rating 1",
+  "page" : "page",
+  "of" : "of"
 
 
 }

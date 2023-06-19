@@ -9,6 +9,8 @@
     "agentCode": "Agent code ",
     "agencyName": "Agency name",
     "totalData" : "Total record",
-    "record" : "record"
+    "record" : "record",
+    "page" : "page",
+    "of" : "of"
   }
 

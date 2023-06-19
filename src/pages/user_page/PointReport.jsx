@@ -5,32 +5,39 @@ import { useState } from "react";
 import th from "./MessageComponent/PointReportTH";
 import en from "./MessageComponent/PointReportEN";
 function PointReport() {
+
+  
   const currentdate = new Date().toISOString().substring(0, 10);
   const [startDate, setStartDate] = useState(currentdate);
   const [endDate, setEndDate] = useState(currentdate);
+  const [startTime,setStartTime] = useState("")
+  const [endTime,setEndTime] = useState("")
+  const [reportType,setReportType] = useState("");
+  const [reportTopic,setReportTopic] = useState("");
+  const [supervisor,setSupervisor] = useState("");
+  const [agent,setAgent] = useState("");
+  const [custumerTel,setCustumerTel] = useState("")
+
+
+  //use for display data
   const [data, setData] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(9);
   const [dataLenth, setDataLenth] = useState("");
   const [fullData, setFullData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [row, setRow] = useState(10);
+
+
+
+  //usefor change language
   const languages = {
     th,
     en,
   };
   const language = localStorage.getItem("language");  
-  const next = () => {
-    if (endIndex + 1 < dataLenth) {
-      setStartIndex(startIndex + 10);
-      setEndIndex(endIndex + 10);
-    }
-  };
-  const pre = () => {
-    if (startIndex - 10 >= 0) {
-      setStartIndex(startIndex - 10);
-      setEndIndex(endIndex - 10);
-    }
-  };
 
+  //take data
   const getdata = async () => {
     try {
       const response = await axios.post(
@@ -47,16 +54,62 @@ function PointReport() {
       console.log(error);
     }
   };
-  const slicedata = async () => {
+
+  const setshowdata = () => {
     setData(fullData.slice(startIndex, endIndex + 1));
+    console.log(data);
+    setPage((endIndex + 1) / row);
   };
-  useEffect(() => {
-    slicedata();
-  }, [startIndex, endIndex]);
+
+  const next = () => {
+    const value = parseInt(row);
+    if (startIndex + value < dataLenth) {
+      setStartIndex(startIndex + value);
+      setEndIndex(endIndex + value);
+    }
+  };
+
+  const pre = () => {
+    const value = parseInt(row);
+    if (startIndex - value >= 0) {
+      setStartIndex(startIndex - value);
+      setEndIndex(endIndex - value);
+    }
+  };
+
+  const selectPage = (value) => {
+    if (parseInt(value) <= 0 || !Number.isInteger(parseInt(value))) {
+      setPage("");
+    } else if (parseInt(value) * row > dataLenth) {
+      value = Math.ceil(dataLenth/ row) ;
+      setStartIndex(parseInt(value) * row - row);
+      setEndIndex(parseInt(value) * row - 1);
+      setPage((value));
+    } else {
+      setStartIndex(parseInt(value) * row - row);
+      setEndIndex((parseInt(value) * row - 1));
+      setPage(value);
+    }
+  };
+  const showDataValue = (value) => {
+    setRow(value);
+    setStartIndex(0);
+    setEndIndex(value - 1);
+  };
+
+
+
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    setshowdata();
+  }, [fullData]);
+  useEffect(() => {
+    setshowdata();
+  }, [startIndex, endIndex]);
+
+
+
+
   return (
     <div>
       <div
@@ -66,11 +119,9 @@ function PointReport() {
           minWidth: "1200px",
         }}
       >
-        <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-          this is path
-        </div>
+
         <div>
-          <h3 className="p-2">{languages[language].ratingsReport}</h3>
+          <h3 className="p-2 fw-bold pt-3">{languages[language].ratingsReport}</h3>
         </div>
         <div className="card mb-3">
           <div className="h5 card-header align-items-center text-white p-2">
@@ -124,21 +175,21 @@ function PointReport() {
                     <input
                       type="text"
                       className="form-control text-center"
-                      placeholder="00"
+                      placeholder="23"
                       style={{ maxWidth: "50px" }}
                     ></input>{" "}
                     <h3 className="px-1"> : </h3>
                     <input
                       type="text"
                       className="form-control text-center"
-                      placeholder="00"
+                      placeholder="59"
                       style={{ maxWidth: "50px" }}
                     ></input>{" "}
                   </div>
                   <div className="row p-2 mt-3">
                     <div className="col-2 px-5 pt-1 ">
                       {" "}
-                      {languages[language].reportType} :
+                      {languages[language].reportType}
                     </div>
                     <div className="col-2 ms-2">
                       <select className="form-select" id="floatingSelectGrid">
@@ -322,14 +373,26 @@ function PointReport() {
           </div>
         </div>
         <div className="card mb-4">
+          
           <div className="h5 card-header align-items-center text-white p-2">
             {languages[language].searchResult}
           </div>
           <div className=" ">
+          <select
+                  onChange={(e) => showDataValue(e.target.value)}
+                  className="form-select ms-5 mt-4"
+                  style={{ width: "100px" }}
+                >
+                  <option value="10" selected>
+                    10{" "}
+                  </option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
             <div className="d-flex justify-content-center">
-              <div className="row p-2 mt-3 " style={{ width: "100%" }}>
+              <div className="row p-2 mt-2 " style={{ width: "100%" }}>
                 <div>
-                  <div className="px-5">
+                  <div className="px-4">
                     <table className="table table-hover shadow-sm p-3 mb-5 bg-body-tertiary rounded">
                       <thead>
                         <tr className="table-header align-middle">
@@ -382,13 +445,13 @@ function PointReport() {
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            No Input จำนวน
+                            No Input 
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
                           </th>
                           <th scope="col" style={{ width: "5%" }}>
-                            No Match จำนวน
+                            No Match 
                           </th>
                           <th scope="col" style={{ width: "2%" }}>
                             %
@@ -463,7 +526,36 @@ function PointReport() {
                             {languages[language].totaldata}
                             {dataLenth}
                           </th>
-                          <th colSpan="17">
+                          <th colSpan="11" className="align-middle">
+                        <div
+                          style={{ display: "flex", alignItems: "center" }}
+                          className="m-0 p-0"
+                        >
+                          <span> {languages[language].page}</span>
+                          <input
+                            onChange={(e) =>
+                              selectPage(parseInt(e.target.value))
+                            }
+                            type="text"
+                            className="form-control mx-2"
+                            id="pagenumber"
+                            value={page}
+                            style={{
+                              width: "60px",
+                              height: "30px",
+                              textAlign: "center",
+                            }}
+                            disabled={Math.ceil(dataLenth / row) <= "1"}
+
+                          />
+                          <span>
+                            {languages[language].of}{" "}
+                            {Math.ceil(dataLenth / row)}{" "}
+                            {languages[language].page}
+                          </span>
+                        </div>
+                      </th>
+                          <th colSpan="8">
                             <div className="text-end me-5">
                               <div
                                 className="btn btn-primary px-3 mx-1"

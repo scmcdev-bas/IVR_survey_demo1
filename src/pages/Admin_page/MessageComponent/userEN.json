@@ -21,7 +21,9 @@
     "record" : "record",
     "search" : "search",
     "insertUser" : "Add user",
-    "serarchResult" : "Serarch result"
+    "serarchResult" : "Serarch result",
+    "page" : "page",
+    "of" : "of"
 
 
 }

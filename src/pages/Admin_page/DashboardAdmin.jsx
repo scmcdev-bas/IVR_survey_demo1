@@ -68,13 +68,11 @@ function DashboardAdmin() {
 
   return (
     <div
-      style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }}
+      style={{ paddingLeft: "270px", paddingRight: "10px", minWidth: "1200px" }} className="mb-3"
     >
-      <div className="alert alert-secondary w-50 p-2 mt-3" role="alert">
-        {languages[language].dashboard}
-      </div>
+
       <div>
-        <h3 className="p-2"> {languages[language].dashboard}</h3>
+        <h3 className="p-2 fw-bold pt-3"> {languages[language].dashboard}</h3>
       </div>
       <div className="row p-0 m-0">
         <div className="col-4 p-0">
